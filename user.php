@@ -1,6 +1,4 @@
-<?php include 'database_con.php';
-      session_start();
- ?>
+<?php include 'database.php' ; ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -26,9 +24,6 @@
     <title>GTtravel</title>
   </head>
   <body>
-    <?php
-      $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
-     ?>
 
       <header>
         <nav class = 'navbar navbar-default navbar-fixed-top'>
@@ -36,25 +31,10 @@
               <ul class="nav navbar-nav navbar-right">
       					<li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href = "login.php"><i class ="fa fa-user"></i> Login</a></li>
+                <li><a href = 
               </ul>
               <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
             </div>
           </nav>
         </header>
-        <div class = 'container text-center' id = 'intro'>
-          <h1>Georgia Tech Travel</h1>
-          <div class = "panel panel-primary panel-transparent">
-              <div class = "panel-heading">
-                  <h2 class = 'panel-title'>Trust us. We all need a vacation.</h2>
-              </div>
-              <div class = "panel-body">
-                <p>This site allows fellow Georgia Tech students to post and share
-                about their travel experiences. If you want to know the best places to go,
-              look nowhere else but here!</p>
-                <p> <br /></p>
-              <div class = 'btn'>Login</div>
-              <div class = 'btn'>Sign Up</div>
-              </div>
-        </div>
-    </body>
-</html>
+  </body>
