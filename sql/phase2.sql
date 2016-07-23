@@ -10,24 +10,27 @@ CREATE TABLE Users
 	UNIQUE (Email)
 );
 
-
+CREATE TABLE Categories
+	(Category VARCHAR(15) NOT NULL,
+	PRIMARY KEY(Category)
+    );
 
 CREATE TABLE Reviewable
 	(ReviewableID int NOT NULL,
 	PRIMARY KEY(ReviewableID));
 
 CREATE TABLE Country
-	(CoName VARCHAR(50),
+	(CountryName VARCHAR(50),
 	NUsername VARCHAR(15) NOT NULL,
 	Population INT UNSIGNED NOT NULL,
 
-	PRIMARY KEY(CoName),
+	PRIMARY KEY(CountryName),
 	FOREIGN KEY(NUsername) REFERENCES Users(Username)
 		ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE City
-	(CName VARCHAR(50),
+	(CityName VARCHAR(50),
 	CountryName VARCHAR(50),
 	Latitude DOUBLE NOT NULL,
 	Longitude DOUBLE NOT NULL,
@@ -36,8 +39,8 @@ CREATE TABLE City
 	ReviewableID INT NOT NULL,
 	Capital BOOLEAN NOT NULL,
 
-	PRIMARY KEY(CName, CountryName),
-	FOREIGN KEY(CountryName) REFERENCES Country(CoName)
+	PRIMARY KEY(CityName, CountryName),
+	FOREIGN KEY(CountryName) REFERENCES Country(CountryName)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY(NUsername) REFERENCES Users(Username)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -52,26 +55,23 @@ CREATE TABLE Location
     CountryName     VARCHAR(50)     NOT NULL,
     LName           VARCHAR(50)   NOT NULL,
     Cost            INT         NOT NULL,
-    LType            ENUM('MUSEUM',
-                        'STADIUM',
-                        'RESURANT',
-                        'PLAZA',
-                        'PARK',
-                        'MEMORIAL',
-                        'CHURCH') NOT NULL,
+    LocationType    VARCHAR(15) NOT NULL,
     StudentDiscount BOOL        NOT NULL,
     ReviewableID    INT       NOT NULL,
     NUsername       VARCHAR(15)    NOT NULL,
 
 
-    FOREIGN KEY(CityName)      REFERENCES City(CName)               ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY(CountryName)   REFERENCES Country(CoName)            ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY(CityName)      REFERENCES City(CityName)               ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY(CountryName)   REFERENCES Country(CountryName)            ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY(ReviewableID)  REFERENCES Reviewable(ReviewableID) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY(LocationType)  REFERENCES Categories(Category) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY(NUsername)     REFERENCES Users(Username)     ON DELETE RESTRICT ON UPDATE CASCADE,
 	PRIMARY KEY(Address,
                 CityName,
                 CountryName)
 );
+
+
 
 
 CREATE TABLE Event
@@ -85,16 +85,18 @@ CREATE TABLE Event
 	Cost INT NOT NULL,
 	StudentDiscount TINYINT(1) NOT NULL DEFAULT 0,
 	Description TEXT NOT NULL,
-	Category ENUM('concert', 'sports match', 'race', 'festival', 'presentation'),
+	EventType VARCHAR(15) NOT NULL,
 	NUsername VARCHAR(15) NOT NULL,
 	ReviewableID int NOT NULL,
 
 	CHECK (StartTime < EndTime),
 	FOREIGN KEY(Address) REFERENCES Location(Address)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
-	FOREIGN KEY(CityName) REFERENCES City(CName)
+	FOREIGN KEY(CityName) REFERENCES Location(CityName)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
-	FOREIGN KEY(CountryName) REFERENCES Country(CoName)
+	FOREIGN KEY(CountryName) REFERENCES Location(CountryName)
+		ON DELETE RESTRICT ON UPDATE CASCADE,
+	FOREIGN KEY(EventType) REFERENCES Categories(Category)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY(NUsername) REFERENCES Users(Username)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -125,7 +127,7 @@ CREATE TABLE CountryLanguage
 	(CountryName varchar(50) NOT NULL,
 	 LanguageName varchar(25) NOT NULL,
 	 PRIMARY KEY(CountryName, LanguageName),
-	 FOREIGN KEY(CountryName) REFERENCES Country(CoName)
+	 FOREIGN KEY(CountryName) REFERENCES Country(CountryName)
 		ON DELETE RESTRICT	ON UPDATE CASCADE,
 	 FOREIGN KEY (LanguageName) REFERENCES Languages(LanguageName)
 		ON DELETE RESTRICT	ON UPDATE CASCADE
@@ -136,9 +138,9 @@ CREATE TABLE CityLanguage
 	 CityName varchar(50) NOT NULL,
 	 LanguageName varchar(25) NOT NULL,
 	 PRIMARY KEY(CountryName, LanguageName),
-	 FOREIGN KEY(CityName) REFERENCES City(CName)
+	 FOREIGN KEY(CityName) REFERENCES City(CityName)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
-	 FOREIGN KEY(CountryName) REFERENCES Country(CoName)
+	 FOREIGN KEY(CountryName) REFERENCES Country(CountryName)
 		ON DELETE RESTRICT	ON UPDATE CASCADE,
 	FOREIGN KEY (LanguageName) REFERENCES Languages(LanguageName)
 		ON DELETE RESTRICT	ON UPDATE CASCADE
