@@ -131,7 +131,7 @@ CREATE TABLE CityLanguage
 	(CountryName varchar(50) NOT NULL,
 	 CityName varchar(50) NOT NULL,
 	 LanguageName varchar(25) NOT NULL,
-	 PRIMARY KEY(CountryName, LanguageName),
+	 PRIMARY KEY(CountryName, CityName, LanguageName),
 	 FOREIGN KEY(CityName) REFERENCES City(CityName)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
 	 FOREIGN KEY(CountryName) REFERENCES Country(CountryName)
