@@ -100,12 +100,13 @@ CREATE TABLE Event
 
 
 CREATE TABLE Review
-	(Date DATE,
+	(RDate DATE,
 	 Username varchar(15) NOT NULL,
 	 Score int,
 	 Description varchar(255),
 	 ReviewableID int NOT NULL,
-	 PRIMARY KEY(Date, Username, ReviewableID),
+     RSubject varchar(50) not null,
+	 PRIMARY KEY(RDate, Username, ReviewableID),
 	 FOREIGN KEY(Username) REFERENCES Users(Username),
 	 FOREIGN KEY(ReviewableID) REFERENCES Reviewable(ReviewableID)
 		 ON DELETE RESTRICT	ON UPDATE CASCADE
