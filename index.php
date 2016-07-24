@@ -1,5 +1,6 @@
-<?php include 'database_con.php';
-      session_start();
+<?php
+include 'database_con.php';
+session_start();
  ?>
 <!DOCTYPE html>
 <html>
@@ -35,7 +36,7 @@
             <div id = "spy-scroll-id" class = 'container'>
               <ul class="nav navbar-nav navbar-right">
       					<li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
-                <li><a href = "login.php"><i class ="fa fa-user"></i> Login</a></li>
+                <li><a href = "login.php"><i class ="fa fa-user"></i>Login</a></li>
               </ul>
               <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
             </div>
@@ -52,7 +53,7 @@
                 about their travel experiences. If you want to know the best places to go,
               look nowhere else but here!</p>
                 <p> <br /></p>
-              <div class = 'btn'>Login</div>
+              <div class = 'btn'><a href = "login.php">Login</a></div>
               <div class = 'btn'>Sign Up</div>
               </div>
         </div>
