@@ -32,17 +32,15 @@ CREATE TABLE Country
 CREATE TABLE City
 	(CityName VARCHAR(50),
 	CountryName VARCHAR(50),
-	Latitude DOUBLE NOT NULL,
-	Longitude DOUBLE NOT NULL,
-	NUsername VARCHAR(15) NOT NULL,
+	Latitude varchar(10) NOT NULL,
+	Longitude varchar(10) NOT NULL,
 	MUsername VARCHAR(15) NOT NULL,
 	ReviewableID INT NOT NULL,
 	Capital BOOLEAN NOT NULL,
+    Population int not null,
 
 	PRIMARY KEY(CityName, CountryName),
 	FOREIGN KEY(CountryName) REFERENCES Country(CountryName)
-		ON DELETE RESTRICT ON UPDATE CASCADE,
-	FOREIGN KEY(NUsername) REFERENCES Users(Username)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY(ReviewableID) REFERENCES Reviewable(ReviewableID)
 		ON DELETE RESTRICT ON UPDATE CASCADE
@@ -58,14 +56,12 @@ CREATE TABLE Location
     LocationType    VARCHAR(15) NOT NULL,
     StudentDiscount BOOL        NOT NULL,
     ReviewableID    INT       NOT NULL,
-    NUsername       VARCHAR(15)    NOT NULL,
 
 
     FOREIGN KEY(CityName)      REFERENCES City(CityName)               ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY(CountryName)   REFERENCES Country(CountryName)            ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY(ReviewableID)  REFERENCES Reviewable(ReviewableID) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY(LocationType)  REFERENCES Categories(Category) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY(NUsername)     REFERENCES Users(Username)     ON DELETE RESTRICT ON UPDATE CASCADE,
 	PRIMARY KEY(Address,
                 CityName,
                 CountryName)
@@ -83,10 +79,9 @@ CREATE TABLE Event
 	CountryName VARCHAR(50) NOT NULL,
 	EndTime TIME,
 	Cost INT NOT NULL,
-	StudentDiscount TINYINT(1) NOT NULL DEFAULT 0,
+	StudentDiscount boolean NOT NULL DEFAULT false,
 	Description TEXT NOT NULL,
 	EventType VARCHAR(15) NOT NULL,
-	NUsername VARCHAR(15) NOT NULL,
 	ReviewableID int NOT NULL,
 
 	CHECK (StartTime < EndTime),
@@ -98,8 +93,6 @@ CREATE TABLE Event
 		ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY(EventType) REFERENCES Categories(Category)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
-	FOREIGN KEY(NUsername) REFERENCES Users(Username)
-		ON DELETE RESTRICT ON UPDATE CASCADE,
 	FOREIGN KEY(ReviewableID) REFERENCES Reviewable(ReviewableID)
 		ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT EVENTID PRIMARY KEY (EName, EDate, StartTime, Address, CityName, CountryName)
@@ -107,12 +100,13 @@ CREATE TABLE Event
 
 
 CREATE TABLE Review
-	(Date DATE,
+	(RDate DATE,
 	 Username varchar(15) NOT NULL,
 	 Score int,
 	 Description varchar(255),
 	 ReviewableID int NOT NULL,
-	 PRIMARY KEY(Date, Username),
+     RSubject varchar(50) not null,
+	 PRIMARY KEY(RDate, Username, ReviewableID),
 	 FOREIGN KEY(Username) REFERENCES Users(Username),
 	 FOREIGN KEY(ReviewableID) REFERENCES Reviewable(ReviewableID)
 		 ON DELETE RESTRICT	ON UPDATE CASCADE
