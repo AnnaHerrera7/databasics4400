@@ -32,12 +32,12 @@ CREATE TABLE Country
 CREATE TABLE City
 	(CityName VARCHAR(50),
 	CountryName VARCHAR(50),
-	Latitude DOUBLE NOT NULL,
-	Longitude DOUBLE NOT NULL,
-	NUsername VARCHAR(15) NOT NULL,
+	Latitude varchar(10) NOT NULL,
+	Longitude varchar(10) NOT NULL,
 	MUsername VARCHAR(15) NOT NULL,
 	ReviewableID INT NOT NULL,
 	Capital BOOLEAN NOT NULL,
+    Population int not null,
 
 	PRIMARY KEY(CityName, CountryName),
 	FOREIGN KEY(CountryName) REFERENCES Country(CountryName)
@@ -58,7 +58,6 @@ CREATE TABLE Location
     LocationType    VARCHAR(15) NOT NULL,
     StudentDiscount BOOL        NOT NULL,
     ReviewableID    INT       NOT NULL,
-    NUsername       VARCHAR(15)    NOT NULL,
 
 
     FOREIGN KEY(CityName)      REFERENCES City(CityName)               ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -83,10 +82,9 @@ CREATE TABLE Event
 	CountryName VARCHAR(50) NOT NULL,
 	EndTime TIME,
 	Cost INT NOT NULL,
-	StudentDiscount TINYINT(1) NOT NULL DEFAULT 0,
+	StudentDiscount boolean NOT NULL DEFAULT false,
 	Description TEXT NOT NULL,
 	EventType VARCHAR(15) NOT NULL,
-	NUsername VARCHAR(15) NOT NULL,
 	ReviewableID int NOT NULL,
 
 	CHECK (StartTime < EndTime),
@@ -112,7 +110,7 @@ CREATE TABLE Review
 	 Score int,
 	 Description varchar(255),
 	 ReviewableID int NOT NULL,
-	 PRIMARY KEY(Date, Username),
+	 PRIMARY KEY(Date, Username, ReviewableID),
 	 FOREIGN KEY(Username) REFERENCES Users(Username),
 	 FOREIGN KEY(ReviewableID) REFERENCES Reviewable(ReviewableID)
 		 ON DELETE RESTRICT	ON UPDATE CASCADE
