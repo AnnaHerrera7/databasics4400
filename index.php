@@ -38,23 +38,24 @@ session_start();
       					<li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href = "login.php"><i class ="fa fa-user"></i>Login</a></li>
               </ul>
-              <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
+              <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
             </div>
           </nav>
         </header>
         <div class = 'container text-center' id = 'intro'>
-          <h1>Georgia Tech Travel</h1>
+          <a href = '#' class = "img-responsive "><img id = "mainLogo" src = "./images/LogoMakr.png"></a>
           <div class = "panel panel-primary panel-transparent">
               <div class = "panel-heading">
-                  <h2 class = 'panel-title'>Trust us. We all need a vacation.</h2>
+                  <h2 class = 'panel-title'>Time to explore outside The Bubble.</h2>
               </div>
               <div class = "panel-body">
-                <p>This site allows fellow Georgia Tech students to post and share
-                about their travel experiences. If you want to know the best places to go,
-              look nowhere else but here!</p>
+                <p>GT Travel allows fellow Yellow Jackets to post and share stories
+                from their travel experiences. If you want to know the best places to go,
+                log in and find your new vacation spot. If you are new to GT Travel, we are
+                excited to see where you go. Sign up and let us know!</p>
                 <p> <br /></p>
               <div class = 'btn'><a href = "login.php">Login</a></div>
-              <div class = 'btn'>Sign Up</div>
+              <div class = 'btn'><a href = "signup.php">Sign Up</a></div>
               </div>
         </div>
     </body>

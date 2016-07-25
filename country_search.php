@@ -22,8 +22,9 @@ session_start();
                   $query = "SELECT * FROM Country";
                   $result = mysqli_query($con, $query);
                   echo "<select name=\"country\">";
+                    echo "<option value = 'empty'></option>";
                   while($row = mysqli_fetch_array($result)) {
-                    echo "<option value = '" . $row['CoName'] . "'>" . $row['CoName'] . "</option>";
+                    echo "<option value = '" . $row['CountryName'] . "'>" . $row['CountryName'] . "</option>";
                   }
                   echo "</select>";
                ?>
@@ -47,35 +48,42 @@ session_start();
             error_reporting(E_ALL);
             ini_set("display_errors", 1);
             $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
-            if(isset($_POST['country'])
-              && isset($_POST['minimum'])
-              && isset($_POST['maximum'])
-              && isset($_POST['language'])) {
-                  $country = $_POST['country'];
-                  $min = $_POST['minimum'];
-                  $max = $_POST['maximum'];
-                  $lang = $_POST['language'];
-                  $sql = "SELECT DISTINCT CoName, CName, Country.Population, LanguageName
-                       FROM Country, CountryLanguage, City
-                       WHERE Country.CoName = \"$country\"
-                       AND City.CountryName = Country.CoName AND City.Capital = 1
-                       AND Country.Population BETWEEN \"$min\" AND \"$max\"
-                       AND Country.CoName IN
+            if (isset($_POST['minimum']) && $_POST['minimum'] != ""
+              && isset($_POST['maximum']) && $_POST['maximum'] != "") {
+                $pop = "Country.Population BETWEEN ". $_POST['minimum'] ." AND ". $_POST['maximum'] . " AND ";
+            } else {
+                $pop = "";
+            }
+            if (isset($_POST['language']) && $_POST['language'] != "") {
+                $lang = "Country.CountryName IN
                        (SELECT CountryLanguage.CountryName
                          FROM CountryLanguage
-                         WHERE CountryLanguage.LanguageName = \"$lang\")
-                         AND Country.CoName = CountryLanguage.CountryName;";
+                         WHERE CountryLanguage.LanguageName = \"". $_POST['language'] ."\") AND ";
+            } else {
+                $lang = "";
+            }
+            if (isset($_POST['country'])) {
+                  if($_POST['country'] == "empty") {
+                    $country = "";
+                  } else {
+                    $country = "Country.CountryName = \"". $_POST['country'] ."\" AND ";
+                  }
+                  $sql = "SELECT DISTINCT Country.CountryName, City.CityName, Country.Population, LanguageName
+                      FROM Country, CountryLanguage, City
+                      WHERE $country $pop $lang 
+                      City.CountryName = Country.CountryName AND City.Capital = 1 AND 
+                      Country.CountryName = CountryLanguage.CountryName;";
                   $result = mysqli_query($con, $sql);
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['country_search'] = $result;
                       //echo "<script>window.location.href='country_search_results.php'</script>";
                       echo "<table class= \"text-center\" border=\"1\">";
                       echo "<tr>";
-                          echo "<th> Country </th><th> City </th><th> Population </th><th>Language</th>";
+                          echo "<th> Country </th><th> Capital City </th><th> Population </th><th>Language</th>";
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td>" . $val[0] . "</td>";
+                          echo "<td><a href= \"country_listing.php?a=$val[0]\">" . $val[0] . "</a></td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
