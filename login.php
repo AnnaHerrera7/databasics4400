@@ -44,7 +44,7 @@ session_start();
             Password: <input type="text" name="password" required/><br />
             <input type="submit" name="submit" value="Sign in">
           </form>
-          <a href="signup.php">New to GT Travel? Sign up here! </a>
+          <a href="signup.php">New to GT Adsjgkasdlfjs Travel? Sign up here! </a>
         </div>
       </div>
   </body>
