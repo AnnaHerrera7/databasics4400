@@ -66,14 +66,14 @@ session_start();
                   $min = $_POST['minimum'];
                   $max = $_POST['maximum'];
                   $type = $_POST['ltype'];
-                  $sql = "SELECT DISTINCT LName, CityName, LocationType, Cost, AVG(Score) AS AvgScore
+                  $sql = "SELECT DISTINCT Location.LName, Location.CityName, Location.LocationType, Location.Cost, AVG(Score) AS AvgScore
                           FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                           WHERE Location.LName = \"$loc\"
                           AND Location.CityName = \"$city\"
                           AND Location.LocationType IN \"$type\"
                           AND Location.Cost BETWEEN \"$min\" AND \"$max\"
                           AND Location.ReviewableID = Reviewable.ReviewableID
-                          GROUP BY LName, CityName, LocationType, Cost
+                          GROUP BY Location.LName, Location.CityName, Location.LocationType, Location.Cost
                           ORDER BY AvgScore DESC;";
                   $result = mysqli_query($con, $sql);
                   if(mysqli_num_rows($result) > 0) {
