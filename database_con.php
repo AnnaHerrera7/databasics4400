@@ -1,6 +1,6 @@
 <?php
-$db_user = '4400admin';
-$db_password = 'iambasic';
+$db_user = 'root';
+$db_password = 'root';
 $db_host = 'localhost';
 $db_database = 'travelreviews';
 ?>
