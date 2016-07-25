@@ -15,16 +15,16 @@ session_start();
   <body>
     <div class="container text-center">
       <div class='jumbotron'>
-        <h2>Location Search</h2>
+        <h2>Event Search</h2>
           <form action = "" method="POST">
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
-              $query_country = "SELECT * FROM Location";
+              $query_country = "SELECT * FROM Event";
               $result_country = mysqli_query($con, $query_country);
-              echo "<select name=\"location\">";
+              echo "<select name=\"event\">";
               while($row = mysqli_fetch_array($result_country)) {
-                echo "<option value = '" . $row['LName'] . "'>" . $row['LName'] . "</option>";
+                echo "<option value = '" . $row['EName'] . "'>" . $row['EName'] . "</option>";
               }
               echo "</select> <br />";
 
@@ -35,6 +35,7 @@ session_start();
                 echo "<option value = '" . $row['CityName'] . "'>" . $row['CityName'] . "</option>";
               }
               echo "</select> <br />";
+              echo "<input type=\"date\" name=\"edate\"><br />";
              ?>
             
              <b>Cost</b>
@@ -43,45 +44,55 @@ session_start();
              <b class="text-center">Category</b>
              <?php
                 $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
-                $query = "SELECT DISTINCT LocationType FROM Location";
+                $query = "SELECT DISTINCT EventType FROM Event";
                 $result = mysqli_query($con, $query);
                 echo "<fieldset id=\"group1\">";
                 while($row = mysqli_fetch_array($result)) {
-                    echo "<input type = \"radio\" name=\"ltype\" value = '" . $row['LocationType'] . "'>" .  $row['LocationType'] . "</input><br />";
+                    echo "<input type = \"radio\" name=\"etype\" value = '" . $row['EventType'] . "'>" .  $row['EventType'] . "</input><br />";
                 }
               ?>
-              <input type="submit" name="submit" value="Search">
+              <b>Sort Review Scores</b>
+              <select name="scoresort">
+                <option value = 'ASC'>Ascending</option>
+                <option value = 'DESC'>Descending</option>
+              </select><br />
+              <input type="submit" name="submit" value="Search"><br />
           </form>
           <?php
             error_reporting(E_ALL);
             ini_set("display_errors", 1);
             $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
-            if(isset($_POST['location'])
+            if(isset($_POST['event'])
               && isset($_POST['city'])
+              && isset($_POST['edate'])
               && isset($_POST['minimum'])
               && isset($_POST['maximum'])
-              && isset($_POST['ltype'])) {
-                  $loc = $_POST['location'];
+              && isset($_POST['etype']) 
+              && isset($_POST['scoresort'])) {
+                  $eve = $_POST['event'];
                   $city = $_POST['city'];
+                  $date = $_POST['edate'];
                   $min = $_POST['minimum'];
                   $max = $_POST['maximum'];
-                  $type = $_POST['ltype'];
-                  $sql = "SELECT DISTINCT Location.LName, Location.CityName, Location.LocationType, Location.Cost, AVG(Score) AS AvgScore
-                          FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
-                          WHERE Location.LName = \"$loc\"
-                          AND Location.CityName = \"$city\"
-                          AND Location.LocationType IN \"$type\"
-                          AND Location.Cost BETWEEN \"$min\" AND \"$max\"
-                          AND Location.ReviewableID = Reviewable.ReviewableID
-                          GROUP BY Location.LName, Location.CityName, Location.LocationType, Location.Cost
-                          ORDER BY AvgScore DESC;";
+                  $type = $_POST['etype'];
+                  $sort = $_POST['scoresort'];
+                  $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, AVG(Score) AS AvgScore
+                          FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
+                          WHERE Event.EName = \"$eve\"
+                          AND Event.CityName = \"$city\"
+                          AND Event.EDate = \"$date\"
+                          AND Event.EventType = \"$type\"
+                          AND Event.Cost BETWEEN \"$min\" AND \"$max\"
+                          AND Event.ReviewableID = Reviewable.ReviewableID
+                          GROUP BY Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType
+                          ORDER BY AvgScore $sort;";
                   $result = mysqli_query($con, $sql);
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['location_search'] = $result;
                       //echo "<script>window.location.href='country_search_results.php'</script>";
                       echo "<table class= \"text-center\" border=\"1\">";
                       echo "<tr>";
-                          echo "<th> Location Name </th><th> City </th><th> Category </th><th>Cost</th><th>Average Score</th>";
+                          echo "<th> Event Name </th><th> City </th><th> Date </th><th>Start Time</th><th> Cost </th><th>Category</th><th>Average Score</th>";
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
@@ -90,6 +101,8 @@ session_start();
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
                           echo "<td>" . $val[4] . "</td>";
+                          echo "<td>" . $val[5] . "</td>";
+                          echo "<td>" . $val[6] . "</td>";
                           echo "</tr>";
                       }
                       echo "</table>";
