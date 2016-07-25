@@ -23,7 +23,7 @@ session_start();
                   $result = mysqli_query($con, $query);
                   echo "<select name=\"country\">";
                   while($row = mysqli_fetch_array($result)) {
-                    echo "<option value = '" . $row['CoName'] . "'>" . $row['CoName'] . "</option>";
+                    echo "<option value = '" . $row['CountryName'] . "'>" . $row['CountryName'] . "</option>";
                   }
                   echo "</select>";
                ?>
@@ -55,16 +55,16 @@ session_start();
                   $min = $_POST['minimum'];
                   $max = $_POST['maximum'];
                   $lang = $_POST['language'];
-                  $sql = "SELECT DISTINCT CoName, CName, Country.Population, LanguageName
+                  $sql = "SELECT DISTINCT Country.CountryName, City.CityName, Country.Population, LanguageName
                        FROM Country, CountryLanguage, City
-                       WHERE Country.CoName = \"$country\"
-                       AND City.CountryName = Country.CoName AND City.Capital = 1
+                       WHERE Country.CountryName = \"$country\"
+                       AND City.CountryName = Country.CountryName AND City.Capital = 1
                        AND Country.Population BETWEEN \"$min\" AND \"$max\"
-                       AND Country.CoName IN
+                       AND Country.CountryName IN
                        (SELECT CountryLanguage.CountryName
                          FROM CountryLanguage
                          WHERE CountryLanguage.LanguageName = \"$lang\")
-                         AND Country.CoName = CountryLanguage.CountryName;";
+                         AND Country.CountryName = CountryLanguage.CountryName;";
                   $result = mysqli_query($con, $sql);
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['country_search'] = $result;
@@ -75,7 +75,7 @@ session_start();
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td>" . $val[0] . "</td>";
+                          echo "<td><a href= \"country_listing.php?a=$val[0]\">" . $val[0] . "</a></td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
