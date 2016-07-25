@@ -55,7 +55,8 @@ session_start();
                   $min = $_POST['minimum'];
                   $max = $_POST['maximum'];
                   $lang = $_POST['language'];
-                  $sql = "SELECT DISTINCT CountryName, CityName, Country.Population, LanguageName
+
+                  $sql = "SELECT DISTINCT Country.CountryName, City.CityName, Country.Population, LanguageName
                        FROM Country, CountryLanguage, City
                        WHERE Country.CountryName = \"$country\"
                        AND City.CountryName = Country.CountryName AND City.Capital = 1
@@ -75,7 +76,7 @@ session_start();
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td>" . $val[0] . "</td>";
+                          echo "<td><a href= \"country_listing.php?a=$val[0]\">" . $val[0] . "</a></td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";

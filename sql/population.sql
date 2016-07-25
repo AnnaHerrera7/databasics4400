@@ -1,6 +1,7 @@
 use travelreviews;
 
 insert into users values ('origin', 'origin@gttravel.com', 'root', true);
+insert into users values ('user', 'user@gmail.com', 'password', false);
 
 
 /* Countries */
@@ -266,3 +267,5 @@ insert into review
 values ('2016-07-26', 'origin', 5, 'This place was great!d', 4, 'D subject');
 insert into review
 values ('2016-07-26', 'origin', 1, 'This place was great!e', 22, 'E subject');
+insert into review
+values ('2016-07-26', 'origin', 3, 'This place was great!e', 6, 'F subject');

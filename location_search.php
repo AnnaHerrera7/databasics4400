@@ -55,7 +55,7 @@ session_start();
                 <option value = 'ASC'>Ascending</option>
                 <option value = 'DESC'>Descending</option>
               </select><br />
-              <input type="submit" name="submit" value="Search">
+              <input type="submit" name="submit" value="Search"><br />
           </form>
           <?php
             error_reporting(E_ALL);
