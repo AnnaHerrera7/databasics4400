@@ -20,17 +20,19 @@ session_start();
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
-              $query_country = "SELECT * FROM Location";
+              $query_country = "SELECT DISTINCT LName FROM Location";
               $result_country = mysqli_query($con, $query_country);
               echo "<select name=\"location\">";
+                echo "<option value = 'empty'></option>";
               while($row = mysqli_fetch_array($result_country)) {
                 echo "<option value = '" . $row['LName'] . "'>" . $row['LName'] . "</option>";
               }
               echo "</select> <br />";
 
-              $query_city = "SELECT * FROM City";
+              $query_city = "SELECT DISTINCT CityName FROM City";
               $result_city = mysqli_query($con, $query_city);
               echo "<select name=\"city\">";
+                echo "<option value = 'empty'></option>";
               while($row = mysqli_fetch_array($result_city)) {
                 echo "<option value = '" . $row['CityName'] . "'>" . $row['CityName'] . "</option>";
               }
@@ -50,10 +52,11 @@ session_start();
                     echo "<input type = \"radio\" name=\"ltype\" value = '" . $row['LocationType'] . "'>" .  $row['LocationType'] . "</input><br />";
                 }
               ?>
-              <b>Sort Review Scores</b>
+              <b>Order By</b>
               <select name="scoresort">
-                <option value = 'ASC'>Ascending</option>
-                <option value = 'DESC'>Descending</option>
+                <option value = 'AvgScore ASC'>Score Ascending</option>
+                <option value = 'AvgScore DESC'>Score Descending</option>
+                <option value = 'Location.LocationType DESC'>Category</option>
               </select><br />
               <input type="submit" name="submit" value="Search"><br />
           </form>
@@ -61,27 +64,37 @@ session_start();
             error_reporting(E_ALL);
             ini_set("display_errors", 1);
             $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
-            if(isset($_POST['location'])
+            if (isset($_POST['minimum']) && $_POST['minimum'] != ""
+              && isset($_POST['maximum']) && $_POST['maximum'] != "") {
+                $cost = "Location.Cost BETWEEN ". $_POST['minimum'] ." AND ". $_POST['maximum'] . " AND ";
+            } else {
+                $cost = "";
+            }
+            if (isset($_POST['ltype']) && $_POST['ltype'] != "") {
+                $type = "Location.LocationType = \"". $_POST['ltype'] ."\" AND ";
+            } else {
+                $type = "";
+            }
+            if (isset($_POST['location'])
               && isset($_POST['city'])
-              && isset($_POST['minimum'])
-              && isset($_POST['maximum'])
-              && isset($_POST['ltype']) 
               && isset($_POST['scoresort'])) {
-                  $loc = $_POST['location'];
-                  $city = $_POST['city'];
-                  $min = $_POST['minimum'];
-                  $max = $_POST['maximum'];
-                  $type = $_POST['ltype'];
+                  if($_POST['location'] == "empty") {
+                    $loc = "";
+                  } else {
+                    $loc = "Location.LName = \"". $_POST['location'] ."\" AND ";
+                  }
+                  if($_POST['city'] == "empty") {
+                    $city = "";
+                  } else {
+                    $city = "Location.CityName = \"". $_POST['city'] ."\" AND ";
+                  }
                   $sort = $_POST['scoresort'];
                   $sql = "SELECT DISTINCT Location.LName, Location.CityName, Location.LocationType, Location.Cost, AVG(Score) AS AvgScore
                           FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
-                          WHERE Location.LName = \"$loc\"
-                          AND Location.CityName = \"$city\"
-                          AND Location.LocationType = \"$type\"
-                          AND Location.Cost BETWEEN \"$min\" AND \"$max\"
-                          AND Location.ReviewableID = Reviewable.ReviewableID
+                          WHERE $loc $city $cost $type
+                          Location.ReviewableID = Reviewable.ReviewableID
                           GROUP BY Location.LName, Location.CityName, Location.LocationType, Location.Cost
-                          ORDER BY AvgScore $sort;";
+                          ORDER BY $sort;";
                   $result = mysqli_query($con, $sql);
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['location_search'] = $result;
