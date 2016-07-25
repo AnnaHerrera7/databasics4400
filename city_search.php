@@ -13,6 +13,17 @@ session_start();
     <title>GTtravel</title>
   </head>
   <body>
+    <header>
+    <nav class = 'navbar navbar-default navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href = "index.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
+        </div>
+      </nav>
+    </header>
     <div class="container text-left">
       <div class='jumbotron'>
         <h2><center>City Search</center></h2>
