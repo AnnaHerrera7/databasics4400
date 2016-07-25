@@ -1,6 +1,8 @@
 body { padding-top: 175px; }
 
-
+.navbar {
+  background-color: #e3f2fd;
+}
 
 #logo {
    height: 50px;
@@ -66,7 +68,6 @@ body {
   -moz-border-radius: 28;
   border-radius: 28px;
   font-family: Georgia;
-  color: #ffffff;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
@@ -81,5 +82,4 @@ body {
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: underline;
   font-size: 25px;
-  color: #ffffff;
 }

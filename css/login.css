@@ -1,0 +1,39 @@
+body { 
+    padding-top: 125px;
+    background-color: #eeeeee;
+    background: url(../images/background-main.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    color: #ffffff;
+}
+
+.navbar {
+    background-color: #e3f2fd;
+}
+
+#logo {
+   height: 50px;
+   width: 75px;
+}
+
+.jumbotron {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e3f2fd!important;
+    border: 5px!important;
+    border-color: #0000ff!important;
+    color: #333399;
+    width: 650px;
+
+}
+
+#mainLogo {
+   height: 250px;
+   width: 275px;
+}
+
+#form-group{
+    width: 10 px!important;
+}
