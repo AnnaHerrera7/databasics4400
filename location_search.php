@@ -70,7 +70,7 @@ session_start();
                           FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                           WHERE Location.LName = \"$loc\"
                           AND Location.CityName = \"$city\"
-                          AND Location.LocationType IN \"$type\"
+                          AND Location.LocationType = \"$type\"
                           AND Location.Cost BETWEEN \"$min\" AND \"$max\"
                           AND Location.ReviewableID = Reviewable.ReviewableID
                           GROUP BY Location.LName, Location.CityName, Location.LocationType, Location.Cost
