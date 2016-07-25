@@ -10,3 +10,9 @@ body {
    height: 50px;
    width: 75px;
 }
+
+table tr{
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    border-color: grey;
+}

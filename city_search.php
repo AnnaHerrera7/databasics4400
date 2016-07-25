@@ -69,7 +69,9 @@ session_start();
                 while($row = mysqli_fetch_array($result)) {
                     echo "<input type = \"radio\" name=\"language\" value = '" . $row['LanguageName'] . "'>" .  $row['LanguageName'] . "</input><br />";
                 }
+                echo "</fieldset>"
               ?>
+
 
               <input type="submit" name="submit" value="Search">
           </form>
@@ -144,7 +146,8 @@ session_start();
               if(mysqli_num_rows($result) > 0) {
                   $_SESSION['country_search'] = $result;
                   //echo "<script>window.location.href='country_search_results.php'</script>";
-                  echo "<table class= \"text-center\" border=\"1\">";
+                  echo "<br/><br/>";
+                  echo "<table class= \"table\">";
                   echo "<tr>";
                       echo "<th> City </th><th> Country </th><th> Population </th><th>Language</th><th>Score</th>";
                   echo "</tr>";
