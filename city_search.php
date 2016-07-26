@@ -89,29 +89,11 @@ session_start();
               || isset($_POST['scoresort'])) {
               if (!isset($_POST['cities']) || $_POST['cities'] == "empty") {
                 $city = "";
-                // $query_city = "SELECT CityName FROM City";
-                // $result_city = mysqli_query($con, $query_city);
-                // $j = 0;
-                // for ($i = 0; $i < mysqli_num_rows($result_city) - 1; $i++) {
-                //   $city_array = mysqli_fetch_array($result_city);
-                //   $city = $city . "City.CityName = \"$city_array[$j]\" OR ";
-                // }
-                // $city_array = mysqli_fetch_array($result_city);
-                // $city = $city . "City.CityName = \"$city_array[$j]\"";
               } else {
                 $city = "City.CityName = \"". $_POST['cities'] ."\" AND ";
               }
               if (!isset($_POST['country']) || $_POST['country'] == "empty") {
                 $country = "";
-              //   $query_country = "SELECT DISTINCT CountryName FROM City";
-              //   $result_country = mysqli_query($con, $query_country);
-              //   $j = 0;
-              //   for ($i = 0; $i < mysqli_num_rows($result_country) - 1; $i++) {
-              //     $country_array = mysqli_fetch_array($result_country);
-              //     $country = $country . "City.CountryName = \"$country_array[$j]\" OR ";
-              //   }
-              //   $country_array = mysqli_fetch_array($result_country);
-              //   $country = $country . "City.CountryName = \"$country_array[$j]\"";
               } else {
                 $country = "City.CountryName = \"". $_POST['country'] ."\" AND ";
               }
@@ -145,11 +127,9 @@ session_start();
                       AND City.ReviewableID = Reviewable.ReviewableID
                       GROUP BY CityName, CountryName, Population, LanguageName
                       ORDER BY $sort , City.CityName ASC;";
-              // echo "<p>$sql</p>";
               $result = mysqli_query($con, $sql) or die(mysqli_error($con));
               if(mysqli_num_rows($result) > 0) {
                   $_SESSION['country_search'] = $result;
-                  //echo "<script>window.location.href='country_search_results.php'</script>";
                   echo "<br/><br/>";
                   echo "<table class= \"table\">";
                   echo "<tr>";
@@ -167,6 +147,7 @@ session_start();
                         $output[$loc] = array($val[0], $val[1], $val[2], $val[3], $val[4]);
                       }
                   }
+                  $_SESSION['city_search_result'] = $output;
                   foreach($output as $row) {
                       echo "<tr>";
                       echo "<td>" . $row[0] . "</td>";
