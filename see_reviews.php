@@ -9,13 +9,28 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/see_reviews.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class="container text-center">
       <div class='jumbotron'>
-        <h2>See All Reviews</h2>
+        <h2><center>See All Reviews</center></h2>
           <?php
             error_reporting(E_ALL);
             ini_set("display_errors", 1);
@@ -29,9 +44,9 @@ session_start();
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['user_reviews'] = $result;
                       //echo "<script>window.location.href='country_search_results.php'</script>";
-                      echo "<table class= \"text-center\" border=\"1\">";
+                      echo "<table class= \"tbale table-striped\" border=\"1\">";
                       echo "<tr>";
-                          echo "<th>Subject</th><th>Date</th><th>Score</th><th>Critic Level</th><th>Description</th>";
+                      echo "<th>Subject</th><th>Date</th><th>Score</th><th>Critic Level</th><th>Description</th>";
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           $date = urlencode($val[1]);
