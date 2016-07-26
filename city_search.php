@@ -153,7 +153,6 @@ session_start();
                         $output[$loc] = array($val[0], $val[1], $val[2], $val[3], $val[4]);
                       }
                   }
-                  $_SESSION['city_search_result'] = $output;
                   foreach($output as $row) {
                       echo "<tr>";
                       echo "<td><a href=\"city_listing.php?a=$row[0]\">" . $row[0] . "</a></td>";
