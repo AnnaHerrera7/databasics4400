@@ -9,10 +9,25 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/city_listing.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class="container text-center">
       <div class = "jumbotron">
         <?php
@@ -45,7 +60,6 @@ session_start();
         $lat = $result_array["Latitude"];
         $long = $result_array["Longitude"];
         echo "<h4>GPS: $lat, $long</h4>";
-        echo "<h4>Locations Within: </h4>";
 
         $query_locations = "SELECT DISTINCT Location.LName, Location.LocationType, Location.Cost, AVG(Score) AS AvgScore
                             FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
@@ -55,10 +69,12 @@ session_start();
                             ORDER BY AvgScore DESC;";
 
         $result_locations = mysqli_query($con, $query_locations);
-        if(mysqli_num_rows($result_locations) > 0) {
-          echo "<table class= \"text-center\" border=\"1\">";
+        if(mysqli_num_rows($result_locations) > -1) {
+          echo "<div class = \"container text-center\" id = \"locationsWithinTable\">";
+          echo "<h3>Locations Within: </h3>";
+          echo "<table class= \"table table-striped\" border=\"1\">";
           echo "<tr>";
-              echo "<th>Name</th><th>Category</th><th>Cost</th><th>Score</th>";
+          echo "<th>Name</th><th>Category</th><th>Cost</th><th>Score</th>";
           echo "</tr>";
           while($val = mysqli_fetch_array($result_locations)) {
               echo "<tr>";
@@ -68,22 +84,24 @@ session_start();
               echo "<td>" . $val[3] . "</td>";
               echo "</tr>";
           }
+          echo "</div>";
           echo "<br />";
         } else {
+            echo "<h3>Locations Within: </h3>";
             echo "No Locations Found!";
         }
 
-        echo "<h4> Reviews: </h4>";
+
         $query_reviews = "SELECT DISTINCT Review.Username, Review.RDate, Review.Score, Review.Description
                           FROM City, Review, Reviewable
                           WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\"
                           AND City.ReviewableID = Reviewable.ReviewableID AND Review.ReviewableID = Reviewable.ReviewableID
                           ORDER BY Review.RDate DESC;";
         $result_reviews = mysqli_query($con, $query_reviews);
-        if(mysqli_num_rows($result_reviews) > 0) {
-          echo "<table class= \"text-center\" border=\"1\">";
+        if(mysqli_num_rows($result_reviews) > -1) {
+          echo "<table class= \"table table-striped\" border=\"1\">";
           echo "<tr>";
-              echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
+          echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
           echo "</tr>";
           while($val = mysqli_fetch_array($result_reviews)) {
               echo "<tr>";
@@ -93,9 +111,11 @@ session_start();
               echo "<td>" . $val[3] . "</td>";
               echo "</tr>";
           }
-        } else {
-            echo "No reviews found!";
-        }
+          echo "<br/>";
+          echo "<h3>Reviews:</h3>";
+          echo "<br />";
+        } 
+
         ?>
       </div>
     </div>

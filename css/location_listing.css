@@ -41,17 +41,6 @@ h2 {
     text-decoration: underline;
 }
 
-#DescripTitle {
-    text-align: left;
-}
-
-#Descrip {
-    width: 450px;
-    border-style: solid;
-    border-color: navy;
-    border-radius: 5px;
-}
-
 .table tbody tr {
     margin-left: auto;
     margin-right: auto;

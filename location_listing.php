@@ -9,10 +9,26 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/location_listing.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class='container text-center'>
       <div class='jumbotron'>
         <?php
@@ -62,11 +78,12 @@ session_start();
 
 
          $result_events = mysqli_query($con, $query_events);
-         if(mysqli_num_rows($result_events) > 0 ) {
+         if(mysqli_num_rows($result_events) > -1 ) {
+           echo "<div class = \"container text-center\" id = \"locationTable\">";
            echo "<h3>Events: </h3>";
-           echo "<table class= \"text-center\" border=\"1\">";
+           echo "<table class= \"table table-striped\" border=\"1\">";
            echo "<tr>";
-               echo "<th>Event</th><th>Date</th><th>Start Time</th><th>Category</th><th>Score</th>";
+           echo "<th>Event</th><th>Date</th><th>Start Time</th><th>Category</th><th>Score</th>";
            echo "</tr>";
            while($val = mysqli_fetch_array($result_events)) {
                echo "<tr>";
@@ -77,7 +94,8 @@ session_start();
                echo "<td>" . $val[4] . "</td>";
                echo "</tr>";
            }
-           echo "<h3>Reviews</h3>";
+           echo "</div>";
+           echo "<br/>";
          }
 
          $query_reviews = "SELECT DISTINCT Review.Username, Review.RDate, Review.Score, Review.Description
@@ -87,10 +105,10 @@ session_start();
                            ORDER BY Review.RDate DESC;";
 
         $result_reviews = mysqli_query($con, $query_reviews);
-         if(mysqli_num_rows($result_reviews) > 0 ) {
-           echo "<table class= \"text-center\" border=\"1\">";
+         if(mysqli_num_rows($result_reviews) > -1 ) {
+           echo "<table class= \"table table-striped\" border=\"1\">";
            echo "<tr>";
-               echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
+           echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
            echo "</tr>";
            while($val = mysqli_fetch_array($result_reviews)) {
                echo "<tr>";
@@ -100,6 +118,8 @@ session_start();
                echo "<td>" . $val[3] . "</td>";
                echo "</tr>";
            }
+           echo "<br />";
+           echo "<h3>Reviews:</h3>";
            echo "<br />";
          }
 

@@ -9,10 +9,25 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/event_listing.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class="container text-center">
       <div class = "jumbotron">
         <?php
@@ -34,8 +49,7 @@ session_start();
         $location = "<h4>Location: $address $city, $country</h4>";
         $date = $result_array['EDate'];
         $startTime = $result_array['StartTime'];
-        $endTime = $result_array['EndTime'];
-        $dateTime = "<h4>Date & Time: $date at $startTime - $endTime";
+        $dateTime = "<h4>Date & Time: $date at $startTime";
         $cost = $result_array['Cost'];
         $category = $result_array['EventType'];
         $discount = $result_array['StudentDiscount'];
@@ -49,9 +63,13 @@ session_start();
         echo $dateTime;
         echo "<h4>Cost: $cost Euros</h4>";
         echo "<h4>Category: $category";
-        echo "<h4>Discount: $discount_string</4>";
-        echo "<h4>Description: $description</h4>";
-        echo "Reviews:";
+        echo "<h4>Discount: $discount_string</h4>";
+        echo "<h4 id = \"DescripTitle\">Description: </h4>";
+        echo "<div class = \"container text-center\" id = \"Descrip\">";
+        echo "<h4>$description</h4>";
+        echo "</div>";
+        echo "<br/>";
+        echo "<h3>Reviews:</h3>";
         $query_reviews = "SELECT Review.Username, Review.RDate, Review.Score, Review.Description
                           FROM Event, Review, Reviewable
                           WHERE Event.CityName = \"$city\" AND Event.CountryName = \"$country\" AND Event.Address = \"$address\"
@@ -60,8 +78,8 @@ session_start();
                           ORDER BY Review.RDate DESC;";
 
         $result_reviews = mysqli_query($con, $query_reviews);
-        if(mysqli_num_rows($result_reviews) > 0) {
-          echo "<table class= \"text-center\" border=\"1\">";
+        if(mysqli_num_rows($result_reviews) > -1) {
+          echo "<table class= \"table table-striped\" border=\"1\">";
           echo "<tr>";
               echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
           echo "</tr>";
