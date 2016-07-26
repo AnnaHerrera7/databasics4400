@@ -73,7 +73,11 @@ session_start();
                   echo "<p> $add_user </p>";
                   $result_user = mysqli_query($con, $add_user) or die(mysqli_error($con));
                   $_SESSION['user'] = $username;
-                  header('Location: home.php');
+                  if($type == 0) {
+                    echo "<script>window.location.href='home.php'</script>";
+                  } else if($type == 1) {
+                    echo "<script>window.location.href='add_city.php'</script>";
+                  }
                }
              }
          ?>
@@ -83,7 +87,7 @@ session_start();
                 <label for="user">Username:</label>
               </div>
               <div class = "col-md-6">
-              <input type="text" class ="form-horizontal" id="user">
+              <input type="text" class ="form-horizontal" id="user" name="user">
               </div>
             </div>
             <div class="form-group">
@@ -91,7 +95,7 @@ session_start();
               <label for="password">Password:</label>
               </div>
               <div class = "col-md-6">
-              <input type="text" class ="form-horizontal" id="password">
+              <input type="text" class ="form-horizontal" id="password" name="password">
               </div>
             </div>
             <div class="form-group">
@@ -99,7 +103,7 @@ session_start();
               <label for="cfmPassword">Confirm Password:</label>
               </div>
               <div class = "col-md-6">
-              <input type="text" class ="form-horizontal" id="cfmPassword">
+              <input type="text" class ="form-horizontal" id="cfmPassword" name="cfmPassword">
               </div>
             </div>
             <div class="form-group">
@@ -107,7 +111,7 @@ session_start();
               <label for="email">Email:</label>
               </div>
               <div class = "col-md-6">
-              <input type="text" class ="form-horizontal" id="email">
+              <input type="text" class ="form-horizontal" id="email" name="email">
               </div>
             </div>
             <div class = "text-center">
