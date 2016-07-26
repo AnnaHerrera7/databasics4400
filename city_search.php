@@ -62,6 +62,7 @@ session_start();
               </div>
               <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to 
               <input type="number" class="form-horizontal" id="pop" name="maximum" placeholder="Maximum"/><br />
+              </div>
              <b class="text-center">City Languages:</b>
              <?php
                 $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
@@ -73,12 +74,13 @@ session_start();
                 }
                 echo "</fieldset>"
               ?>
+              <br/>
               <b>Sort Review Scores: </b>
               <select name="scoresort">
                 <option value = 'AvgScore ASC'>Ascending</option>
                 <option value = 'AvgScore DESC'>Descending</option>
               </select><br />
-
+              <br/>
               <input type="submit" name="submit" value="Search">
           </form>
           <?php
