@@ -34,7 +34,7 @@ session_start();
         <div class="jumbotron">
           <h2><center>Country Search</center></h2>
             <form action="" method="POST" role = "form">
-              <div class = "form-group">
+             <div class = "form-group">
               <?php
                   $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
                   $query = "SELECT * FROM Country";

@@ -83,7 +83,7 @@ session_start();
               </select><br />
               <br/>
               <input type="submit" name="submit" value="Search"><br />
-
+              <br/>
           </form>
           <?php
             error_reporting(E_ALL);
