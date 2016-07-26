@@ -17,6 +17,7 @@ session_start();
       <div class = "jumbotron">
         <h1>Write a City Review</h1>
         <h2>Select a City</h2>
+        <form action="" method="POST">
         <?php
           $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
@@ -29,7 +30,7 @@ session_start();
           }
           echo "</select> <br />";
 
-          $query_city = "SELECT City.CityName FROM City";
+          $query_city = "SELECT DISTINCT City.CityName FROM City";
           $result_city = mysqli_query($con, $query_city);
           echo "<label for=\"citysel\">City</label>";
           echo "<select class=\"form-control\" id=\"citysel\" name=\"cities\">";
@@ -38,7 +39,6 @@ session_start();
           }
           echo "</select> <br />";
          ?>
-        <form action="" method="POST">
           Subject <input type="text" name="subject" required/><br />
           Description <input type="text" name="description" required/><br />
           Score
@@ -56,24 +56,29 @@ session_start();
         ini_set("display_errors", 1);
         $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
         if(isset($_POST['country']) 
-          && isset($_POST['city'])
+          && isset($_POST['cities'])
           && isset($_POST['subject'])
           && isset($_POST['score'])
-          && isset($_POST['description'])) {
+          && isset($_POST['description'])
+          && isset($_SESSION['user'])) {
             $country = $_POST['country'];
-            $city = $_POST['city'];
+            $city = $_POST['cities'];
             $sub = $_POST['subject'];
             $score = $_POST['score'];
             $desc = $_POST['description'];
+            $user = $_SESSION['user'];
+            $date = date('m/d/Y');
             $query1 = "SELECT City.ReviewableID 
             FROM City 
-            WHERE City.CityName = $city AND City.CountryName = $country;";
-            if($revid = mysqli_query($con, $query1)) {
-              if(mysqli_num_rows($revid) == 1) {
-                $query2 = "INSERT INTO Review (Username, RDate, RSubject, RScore, ReviewableID, Description)
-                VALUES ($Username, getdate(), $subject, $score, $revid, $desc);";
+            WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\";";
+            if($my_revid = mysqli_query($con, $query1)) {
+              if(mysqli_num_rows($my_revid) == 1) {
+                $my_revid_array=mysqli_fetch_assoc($my_revid);
+                $revid=$my_revid_array['ReviewableID'];
+                $query2 = "INSERT INTO Review (Username, RDate, RSubject, Score, ReviewableID, Description)
+                VALUES (\"$user\", $date, \"$sub\", $score, $revid, \"$desc\");";
                 if($result = mysqli_query($con, $query2)) {
-                  echo "Review entered";
+                  echo "Review submitted";
                 }
               } else {
                 echo "City does not exist";
@@ -87,6 +92,3 @@ session_start();
       </div>
   </body>
 </html>
-/*How do I get Username?
-getdate()/getdatetime?
-check*/
