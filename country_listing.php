@@ -13,7 +13,7 @@ session_start();
           rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
           crossorigin="anonymous">
 
-    <link rel = 'stylesheet' href = './css/country_search.css'/>
+    <link rel = 'stylesheet' href = './css/country_listing.css'/>
 
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
@@ -45,7 +45,7 @@ session_start();
                   ORDER BY AvgScore DESC, CityName;";
           $result = mysqli_query($con, $sql);
           if(mysqli_num_rows($result) > -1) {
-            echo "<table class= \"text-center\" border=\"1\">";
+            echo "<table class= \"table table-striped\" border=\"1\">";
             echo "<tr>";
                 echo "<th>City</th><th>Population</th><th>Language</th><th>Score</th>";
             echo "</tr>";
