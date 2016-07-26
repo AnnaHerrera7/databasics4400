@@ -20,17 +20,19 @@ session_start();
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
-              $query_country = "SELECT * FROM Event";
-              $result_country = mysqli_query($con, $query_country);
+              $query_event = "SELECT DISTINCT EName FROM Event";
+              $result_event = mysqli_query($con, $query_event);
               echo "<select name=\"event\">";
-              while($row = mysqli_fetch_array($result_country)) {
+                echo "<option value = 'empty'></option>";
+              while($row = mysqli_fetch_array($result_event)) {
                 echo "<option value = '" . $row['EName'] . "'>" . $row['EName'] . "</option>";
               }
               echo "</select> <br />";
 
-              $query_city = "SELECT * FROM City";
+              $query_city = "SELECT DISTINCT CityName FROM City";
               $result_city = mysqli_query($con, $query_city);
               echo "<select name=\"city\">";
+                echo "<option value = 'empty'></option>";
               while($row = mysqli_fetch_array($result_city)) {
                 echo "<option value = '" . $row['CityName'] . "'>" . $row['CityName'] . "</option>";
               }
@@ -41,6 +43,12 @@ session_start();
              <b>Cost</b>
              <input type="text" name="minimum" placeholder="Minimum"/> to
              <input type="text" name="maximum" placeholder="Maximum"/><br />
+             <b>Student Discount</b>
+              <select name="discount">
+                <option value = "empty"></option>
+                <option value = "1">Yes</option>
+                <option value = "0">No</option>
+              </select><br />
              <b class="text-center">Category</b>
              <?php
                 $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
@@ -62,28 +70,47 @@ session_start();
             error_reporting(E_ALL);
             ini_set("display_errors", 1);
             $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
+            if (isset($_POST['minimum']) && $_POST['minimum'] != ""
+              && isset($_POST['maximum']) && $_POST['maximum'] != "") {
+                $cost = "Event.Cost BETWEEN ". $_POST['minimum'] ." AND ". $_POST['maximum'] . " AND ";
+            } else {
+                $cost = "";
+            }
+            if (isset($_POST['etype']) && $_POST['etype'] != "") {
+                $type = "Event.EventType = \"". $_POST['etype'] ."\" AND ";
+            } else {
+                $type = "";
+            }
+            if (isset($_POST['edate']) && $_POST['edate'] != "") {
+                $date = "Event.Date = \"". $_POST['edate'] ."\" AND ";
+            } else {
+                $date = "";
+            }
+
             if(isset($_POST['event'])
               && isset($_POST['city'])
-              && isset($_POST['edate'])
-              && isset($_POST['minimum'])
-              && isset($_POST['maximum'])
-              && isset($_POST['etype'])
+              && isset($_POST['discount'])
               && isset($_POST['scoresort'])) {
-                  $eve = $_POST['event'];
-                  $city = $_POST['city'];
-                  $date = $_POST['edate'];
-                  $min = $_POST['minimum'];
-                  $max = $_POST['maximum'];
-                  $type = $_POST['etype'];
+                  if($_POST['event'] == "empty") {
+                    $eve = "";
+                  } else {
+                    $eve = "Event.EName = \"". $_POST['event'] ."\" AND ";
+                  }
+                  if($_POST['city'] == "empty") {
+                    $city = "";
+                  } else {
+                    $city = "Event.CityName = \"". $_POST['city'] ."\" AND ";
+                  }
+                  if($_POST['discount'] == "empty") {
+                    $sdiscount = "";
+                  } else {
+                    $sdiscount = "Event.StudentDiscount = \"". $_POST['discount'] ."\" AND ";
+                  }
                   $sort = $_POST['scoresort'];
                   $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, AVG(Score) AS AvgScore
                           FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
-                          WHERE Event.EName = \"$eve\"
-                          AND Event.CityName = \"$city\"
-                          AND Event.EDate = \"$date\"
-                          AND Event.EventType = \"$type\"
-                          AND Event.Cost BETWEEN \"$min\" AND \"$max\"
-                          AND Event.ReviewableID = Reviewable.ReviewableID
+                          WHERE $eve $city $sdiscount $cost $type
+                          Event.ReviewableID = Reviewable.ReviewableID
                           GROUP BY Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType
                           ORDER BY AvgScore $sort;";
                   $result = mysqli_query($con, $sql);
