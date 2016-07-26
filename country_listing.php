@@ -44,7 +44,7 @@ session_start();
                   GROUP BY CityName, Population, LanguageName
                   ORDER BY AvgScore DESC, CityName;";
           $result = mysqli_query($con, $sql);
-          if(mysqli_num_rows($result) > 0) {
+          if(mysqli_num_rows($result) > -1) {
             echo "<table class= \"text-center\" border=\"1\">";
             echo "<tr>";
                 echo "<th>City</th><th>Population</th><th>Language</th><th>Score</th>";

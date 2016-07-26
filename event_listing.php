@@ -78,7 +78,7 @@ session_start();
                           ORDER BY Review.RDate DESC;";
 
         $result_reviews = mysqli_query($con, $query_reviews);
-        if(mysqli_num_rows($result_reviews) > 0) {
+        if(mysqli_num_rows($result_reviews) > -1) {
           echo "<table class= \"table table-striped\" border=\"1\">";
           echo "<tr>";
               echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";

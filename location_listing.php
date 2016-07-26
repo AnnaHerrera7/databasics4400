@@ -78,8 +78,8 @@ session_start();
 
 
          $result_events = mysqli_query($con, $query_events);
-         if(mysqli_num_rows($result_events) > 0 ) {
-           echo "<div class = \"container text-center\" id = \"eventsTable\">";
+         if(mysqli_num_rows($result_events) > -1 ) {
+           echo "<div class = \"container text-center\" id = \"locationTable\">";
            echo "<h3>Events: </h3>";
            echo "<table class= \"table table-striped\" border=\"1\">";
            echo "<tr>";
@@ -105,10 +105,10 @@ session_start();
                            ORDER BY Review.RDate DESC;";
 
         $result_reviews = mysqli_query($con, $query_reviews);
-         if(mysqli_num_rows($result_reviews) > 0 ) {
+         if(mysqli_num_rows($result_reviews) > -1 ) {
            echo "<table class= \"table table-striped\" border=\"1\">";
            echo "<tr>";
-               echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
+           echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
            echo "</tr>";
            while($val = mysqli_fetch_array($result_reviews)) {
                echo "<tr>";
