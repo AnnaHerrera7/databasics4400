@@ -20,10 +20,8 @@ session_start();
           ini_set("display_errors", 1);
           $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
           $review_id = $_GET['id'];
-          //$date = urldecode($_GET['date']);
-          // use later
-          $date = "2016-07-26";
-          $current_user = "origin";
+          $date = urldecode($_GET['date']);
+          $current_user = $_SESSION['user'];
           echo "<h2> Update Review </h2>";
           $sql = "SELECT RDate, Score, Description, RSubject
                   FROM Review

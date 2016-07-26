@@ -34,8 +34,9 @@ session_start();
                           echo "<th>Subject</th><th>Date</th><th>Score</th><th>Description</th>";
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
+                          $date = urlencode($val[1]);
                           echo "<tr>";
-                          echo "<td><a href = \"update_review.php?a=$val[4]\">" . $val[0] . "</td>";
+                          echo "<td><a href = \"update_review.php?id=$val[4]&date=$date\">" . $val[0] . "</td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
