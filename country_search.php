@@ -29,12 +29,12 @@ session_start();
           </ul>
           <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
         </div>
-      </nav>
+    </nav>
       <div class="container text-center">
         <div class="jumbotron">
-          <h2>Country Search</h2>
+          <h2><center>Country Search</center></h2>
             <form action="" method="POST" role = "form">
-            <div class = "form-group">
+              <div class = "form-group">
               <?php
                   $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
                   $query = "SELECT * FROM Country";
@@ -102,7 +102,8 @@ session_start();
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['country_search'] = $result;
                       //echo "<script>window.location.href='country_search_results.php'</script>";
-                      echo "<table class= \"text-center\" border=\"1\">";
+                      echo "<br/><br/>";
+                      echo "<table class= \"table table-striped\" border=\"1\">";
                       echo "<tr>";
                           echo "<th> Country </th><th> Capital City </th><th> Population </th><th>Language</th>";
                       echo "</tr>";
@@ -119,7 +120,7 @@ session_start();
                       echo "No results found!";
                   }
               }
-             ?>
+            ?>
 
   </body>
 </html>
