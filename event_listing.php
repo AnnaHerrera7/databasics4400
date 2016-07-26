@@ -35,21 +35,25 @@ session_start();
         ini_set("display_errors", 1);
         $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
         $event = $_GET['a'];
+        $address = $_GET['b'];
+        $city = $_GET['c'];
+        $country = $_GET['d'];
+        $date = $_GET['e'];
+        $startTime = $_GET['f'];
         echo "<h2>" . $event . "</h2>";
 
-        $query = "SELECT *
-                  FROM Event
-                  WHERE Ename = \"$event\";";
+        $query = "SELECT Event.EndTime, Event.Cost, Event.EventType, Event.StudentDiscount, Event.Description, AVG(Score) as AvgScore
+                  FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
+                  WHERE Event.Ename = \"$event\" AND Event.Address = \"$address\"
+                  AND Event.CityName = \"$city\" AND Event.CountryName = \"$country\"
+                  AND Event.EDate = \"$date\" AND Event.StartTime = \"$startTime\"
+                  AND Event.ReviewableID = Reviewable.ReviewableID;";
 
         $result = mysqli_query($con, $query);
         $result_array = mysqli_fetch_array($result);
-        $address = $result_array['Address'];
-        $city = $result_array['CityName'];
-        $country = $result_array['CountryName'];
         $location = "<h4>Location: $address $city, $country</h4>";
-        $date = $result_array['EDate'];
-        $startTime = $result_array['StartTime'];
-        $dateTime = "<h4>Date & Time: $date at $startTime";
+        $endTime = $result_array['EndTime'];
+        $dateTime = "<h4>Date & Time: $date at $startTime - $endTime";
         $cost = $result_array['Cost'];
         $category = $result_array['EventType'];
         $discount = $result_array['StudentDiscount'];
@@ -59,11 +63,19 @@ session_start();
         } else {
             $discount_string = "Yes";
         }
+        $avg = $result_array['AvgScore'];
+          if($avg == NULL) {
+            $avgs = "No Reviews Yet";
+          } else {
+            $avgs = $avg;
+          }
         echo $location;
         echo $dateTime;
         echo "<h4>Cost: $cost Euros</h4>";
         echo "<h4>Category: $category";
+
         echo "<h4>Discount: $discount_string</h4>";
+        echo "<h4>Average Review Score: $avgs</h4>";
         echo "<h4 id = \"DescripTitle\">Description: </h4>";
         echo "<div class = \"container text-center\" id = \"Descrip\">";
         echo "<h4>$description</h4>";
