@@ -9,30 +9,54 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/country_search.css'/>
+
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+      </nav>
       <div class="container text-center">
         <div class="jumbotron">
           <h2>Country Search</h2>
-            <form action="" method="POST">
+            <form action="" method="POST" role = "form">
+            <div class = "form-group">
               <?php
                   $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
                   $query = "SELECT * FROM Country";
                   $result = mysqli_query($con, $query);
-                  echo "<select name=\"country\">";
-                    echo "<option value = 'empty'></option>";
+                  echo "<label for=\"countrysel\">Country: </label>";
+                  echo "<select class=\"form-control\" id=\"countrysel\" name=\"country\">";
+                  echo "<option value = 'empty'></option>";
                   while($row = mysqli_fetch_array($result)) {
                     echo "<option value = '" . $row['CountryName'] . "'>" . $row['CountryName'] . "</option>";
                   }
                   echo "</select>";
                ?>
                <br />
-               <b>Population</b>
-               <input type="text" name="minimum" placeholder="Minimum"/> to
-               <input type="text" name="maximum" placeholder="Maximum"/><br />
-               <b class="text-center">Languages</b>
+             </div>
+             <div class="form-group">
+              <div class = "col-md-2">
+              <label for="pop">Population: </label>
+              </div>
+              <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to 
+              <input type="number" class="form-horizontal" id="pop" name="maximum" placeholder="Maximum"/><br />
+              </div>
+              <b class="text-center">Languages</b>
                <?php
                   $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
                   $query = "SELECT * FROM Languages";
@@ -42,6 +66,7 @@ session_start();
                       echo "<input type = \"radio\" name=\"language\" value = '" . $row['LanguageName'] . "'>" .  $row['LanguageName'] . "</input><br />";
                   }
                 ?>
+                <br />
                 <input type="submit" name="submit" value="Search">
             </form>
             <?php
