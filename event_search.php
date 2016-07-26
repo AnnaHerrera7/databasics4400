@@ -9,21 +9,38 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/event_search.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class="container text-center">
       <div class='jumbotron'>
-        <h2>Event Search</h2>
-          <form action = "" method="POST">
+        <h2><center>Event Search</center></h2>
+          <form action = "" method="POST" role = "form">
+            <div class = "form-group">
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
               $query_event = "SELECT DISTINCT EName FROM Event";
               $result_event = mysqli_query($con, $query_event);
-              echo "<select name=\"event\">";
-                echo "<option value = 'empty'></option>";
+              echo "<label for=\"countrysel\">Event Name: </label>";
+              echo "<select class=\"form-control\" id=\"countrysel\" name=\"event\">";
+              echo "<option value = 'empty'></option>";
               while($row = mysqli_fetch_array($result_event)) {
                 echo "<option value = '" . $row['EName'] . "'>" . $row['EName'] . "</option>";
               }
@@ -31,24 +48,31 @@ session_start();
 
               $query_city = "SELECT DISTINCT CityName FROM City";
               $result_city = mysqli_query($con, $query_city);
-              echo "<select name=\"city\">";
-                echo "<option value = 'empty'></option>";
+              echo "<label for=\"citysel\">City: </label>";
+              echo "<select class=\"form-control\" id=\"citysel\" name=\"city\">";
+              echo "<option value = 'empty'></option>";
               while($row = mysqli_fetch_array($result_city)) {
                 echo "<option value = '" . $row['CityName'] . "'>" . $row['CityName'] . "</option>";
               }
               echo "</select> <br />";
-              echo "<input type=\"date\" name=\"edate\"><br />";
+              echo "<label for=\"edate\">Date: </label>";
+              echo "<input type=\"date\" id = \"edate\" name=\"edate\"><br />";
              ?>
-
-             <b>Cost</b>
-             <input type="text" name="minimum" placeholder="Minimum"/> to
-             <input type="text" name="maximum" placeholder="Maximum"/><br />
-             <b>Student Discount</b>
+             </div>
+             <div class="form-group">
+              <div class = "col-md-2">
+              <label for="cost">Cost: </label>
+              </div>
+              <input type="text" class="form-horizontal" id="cost" name="minimum" placeholder="Minimum"/> to
+              <input type="text" class="form-horizontal" id="cost" name="maximum" placeholder="Maximum"/><br />
+              </div>
+             <b class = "text-center">Student Discount: </b>
               <select name="discount">
                 <option value = "empty"></option>
                 <option value = "1">Yes</option>
                 <option value = "0">No</option>
               </select><br />
+              <br/>
              <b class="text-center">Category</b>
              <?php
                 $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
@@ -59,12 +83,15 @@ session_start();
                     echo "<input type = \"radio\" name=\"etype\" value = '" . $row['EventType'] . "'>" .  $row['EventType'] . "</input><br />";
                 }
               ?>
+              <br/>
               <b>Sort Review Scores</b>
               <select name="scoresort">
                 <option value = 'ASC'>Ascending</option>
                 <option value = 'DESC'>Descending</option>
               </select><br />
+              <br/>
               <input type="submit" name="submit" value="Search"><br />
+              <br/>
           </form>
           <?php
             error_reporting(E_ALL);
@@ -117,7 +144,7 @@ session_start();
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['location_search'] = $result;
                       //echo "<script>window.location.href='country_search_results.php'</script>";
-                      echo "<table class= \"text-center\" border=\"1\">";
+                      echo "<table class= \"table table-striped\" border=\"1\">";
                       echo "<tr>";
                           echo "<th> Event Name </th><th> City </th><th> Date </th><th>Start Time</th><th> Cost </th><th>Category</th><th>Average Score</th>";
                       echo "</tr>";
