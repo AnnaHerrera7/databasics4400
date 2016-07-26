@@ -72,6 +72,7 @@ session_start();
                echo "<td>" . $val[4] . "</td>";
                echo "</tr>";
            }
+           echo "<h3>Reviews</h3>";
          }
 
          $query_reviews = "SELECT DISTINCT Review.Username, Review.RDate, Review.Score, Review.Description
@@ -82,7 +83,6 @@ session_start();
 
         $result_reviews = mysqli_query($con, $query_reviews);
          if(mysqli_num_rows($result_reviews) > 0 ) {
-           //echo "<h3>Reviews: </h3>";
            echo "<table class= \"text-center\" border=\"1\">";
            echo "<tr>";
                echo "<th>Username</th><th>Date</th><th>Score</th><th>Description</th>";
