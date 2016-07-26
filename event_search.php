@@ -134,7 +134,8 @@ session_start();
                     $sdiscount = "Event.StudentDiscount = \"". $_POST['discount'] ."\" AND ";
                   }
                   $sort = $_POST['scoresort'];
-                  $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, AVG(Score) AS AvgScore
+                  $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, 
+                          AVG(Score) AS AvgScore, Event.Address, Event.CountryName
                           FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                           WHERE $eve $city $sdiscount $cost $type
                           Event.ReviewableID = Reviewable.ReviewableID
@@ -150,7 +151,7 @@ session_start();
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td><a href = \"event_listing.php?a=$val[0]\">" . $val[0] . "</td>";
+                          echo "<td><a href = \"event_listing.php?a=$val[0]&b=$val[7]&c=$val[1]&d=$val[8]&e=$val[2]&f=$val[3]\">" . $val[0] . "</td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
