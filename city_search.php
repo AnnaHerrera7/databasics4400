@@ -13,15 +13,17 @@ session_start();
     <title>GTtravel</title>
   </head>
   <body>
-    <nav class = 'navbar navbar-light navbar-fixed-top'>
+    <header>
+    <nav class = 'navbar navbar-default navbar-fixed-top'>
         <div id = "spy-scroll-id" class = 'container'>
           <ul class="nav navbar-nav navbar-right">
-            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
-            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href = "index.php"><i class ="fa fa-user"></i>Logout</a></li>
           </ul>
-          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
         </div>
       </nav>
+    </header>
     <div class="container text-left">
       <div class='jumbotron'>
         <h2><center>City Search</center></h2>
@@ -169,7 +171,7 @@ session_start();
                   }
                   foreach($output as $row) {
                       echo "<tr>";
-                      echo "<td>" . $row[0] . "</td>";
+                      echo "<td><a href=\"city_listing.php?a=$row[0]\">" . $row[0] . "</a></td>";
                       echo "<td>" . $row[1] . "</td>";
                       echo "<td>" . $row[2] . "</td>";
                       echo "<td>" . $row[3] . "</td>";
