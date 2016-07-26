@@ -17,6 +17,6 @@
                 RSubject=\"$subject\"
             WHERE RDate=\"$old_date\" AND Username=\"$user\" AND ReviewableID=$id;";
     $result = mysqli_query($con, $sql) or die(mysqli_error($con));
-    header("Location: see_reviews.php")
+    header("Location: see_reviews.php");
 
 ?>
