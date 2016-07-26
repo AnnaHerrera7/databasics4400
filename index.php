@@ -44,7 +44,7 @@ session_start();
         </header>
 
         <div class = 'container text-center' id = 'intro'>
-          <a href = '#' class = "img-responsive "><img id = "mainLogo" src = "./images/LogoMakr.png"></a>
+        <img class="displayed" id = "mainLogo" src = "./images/LogoMakr.png">
           <div class = "panel panel-primary panel-transparent">
               <div class = "panel-heading">
                   <h2 class = 'panel-title'>Time to explore outside The Bubble.</h2>

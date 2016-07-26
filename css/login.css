@@ -9,7 +9,14 @@ body {
 }
 
 .navbar {
-    background-color: #e3f2fd;
+    -webkit-transition: all ease .3s;
+       -moz-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
+    background-color: rgba(227, 242, 253, .4);
+}
+.navbar:hover {
+    background-color: rgba(227, 242, 253, 6);
 }
 
 #logo {
@@ -22,15 +29,18 @@ body {
     margin-left: auto;
     margin-right: auto;
     background-color: #e3f2fd!important;
-    border: 5px!important;
-    border-color: #0000ff!important;
+    border-color: #333399!important;
+    border-style: solid;
     color: #333399;
     width: 650px;
 
 }
 
-#mainLogo {
-   height: 250px;
-   width: 275px;
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 250px;
+    width: 275px;
 }
 

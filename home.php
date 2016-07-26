@@ -11,22 +11,42 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/home.css'/>
+
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+
+      <header>
+        <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+            <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href = "home.php"><i class ="fa fa-user"></i> <?php echo $_SESSION['user']; ?></a></li>
+            </ul>
+            <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+        </nav>
+      </header>
+
       <div class='container text-center'>
+      <div class = "jumbotron">
           <h1>Time to Explore Outside of the Bubble</h1>
           <h2>Let's help you find a...</h2>
-          <ul id="buttons">
-              <li><a href="country_search.php">Country</a></li>
-              <li><a href="city_search.php">City</a></li>
-              <li><a href="location_search.php">Location</a></li>
-              <li><a href="event_search.php">Event</a></li>
-          </ul>
+          <div class = "btn-group">
+            <a class="btn btn-default" href="country_search.php">Country</a>
+            <a class="btn btn-default" href="city_search.php">City</a>
+            <a class="btn btn-default" href="location_search.php">Location</a>
+            <a class="btn btn-default" href="event_search.php" id="event">Event</a>
+          </div>
+          <h4>Pick one of the following in order to begin your search.</h4>
       </div>
-      <?php
-      echo $_SESSION['user'];
-       ?>
+      </div>
   </body>
 </html>
