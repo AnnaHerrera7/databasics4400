@@ -31,7 +31,15 @@ session_start();
           $address = $result_array['Address'];
           $city = $result_array['CityName'];
           $country = $result_array['CountryName'];
-          echo $address;
+          $cost = $result_array['Cost'];
+          $category = $result_array['LocationType'];
+          $discount = $result_array['StudentDiscount'];
+          echo "<h4>Address: $address</h4>";
+          echo "<h4>Cost: $cost</h4>";
+          echo "<h4>Category: $category</h4>";
+          echo "<h4>Student Discount: $discount</h4>";
+
+
 
           $query_events = "SELECT DISTINCT Event.EName, Event.EDate, Event.StartTime, Event.EventType, AVG(Score) AS AvgScore
                            FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
