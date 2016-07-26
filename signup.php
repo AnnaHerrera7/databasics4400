@@ -42,7 +42,7 @@ session_start();
 
     <div class = "container">
       <div class = "jumbotron">
-        <a href = '#' class = "img-responsive text-center"><img id = "mainLogo" src = "./images/LogoMakr.png"></a>
+        <img class="displayed" id = "mainLogo" src = "./images/LogoMakr.png">
         <h2 class = "text-center">Welcome to GT Travel!</h2>
         <?php
           error_reporting(E_ALL);

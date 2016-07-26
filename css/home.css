@@ -1,0 +1,72 @@
+body { 
+    padding-top: 125px;
+    background-color: #eeeeee;
+    background: url(../images/background-home.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    -webkit-transition: all ease .3s;
+       -moz-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
+    background-color: rgba(227, 242, 253, .7)!important;
+    border-bottom-color: #3939ac;
+}
+.navbar:hover {
+    background-color: rgba(227, 242, 253, 1)!important;
+}
+
+#logo {
+   height: 50px;
+   width: 75px;
+}
+
+
+.jumbotron {
+    width: 1100px;
+    -webkit-transition: all ease .3s;
+       -moz-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
+    background-color: rgba(166, 166, 166, 0)!important;
+    color: #ffffff;
+    
+}
+
+
+h1{
+    font-size: 60px;
+    width: 1100px;
+    text-indent: -50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h2{
+    text-align: center;
+}
+
+
+.btn-group {
+    width: 600px;
+    padding: 15px;
+    background-color: rgba(120,120,120, .6)!important;
+    border-radius: 20px;
+    
+}
+
+.btn-default {
+    background-image: -webkit-linear-gradient(top, white, grey);
+    background-image: -moz-linear-gradient(top, white, grey);
+    background-image: -ms-linear-gradient(top, white, grey);
+    background-image: -o-linear-gradient(top, white, grey);
+    background-image: linear-gradient(to bottom, white, grey);
+    border: 0px;
+    width: 125px;
+    font-size: 24px;
+    margin-right: 18.25px;
+    margin-left: auto;
+    border-radius: 10px!important;
+}
+    

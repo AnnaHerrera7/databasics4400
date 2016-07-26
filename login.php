@@ -34,7 +34,7 @@ session_start();
 
     <div class = "container text-center">
       <div class = "jumbotron">
-        <a href = '#' class = "img-responsive "><img id = "mainLogo" src = "./images/LogoMakr.png"></a>
+        <img class="displayed" id = "mainLogo" src = "./images/LogoMakr.png">
         <h1>Login</h1>
         <?php
         error_reporting(E_ALL);
