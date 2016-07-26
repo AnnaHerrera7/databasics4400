@@ -41,7 +41,7 @@ session_start();
                     <li><a href="review_city.php">Review a City</a></li>
                     <li><a href="review_event.php">Review an Event</a></li>
                     <li><a href="review_location.php">Review a Location</a></li>
-                    <li><a href="see_reviews.php">See all Reviews</a></li>
+                    <li><a href="see_reviews.php">See All Reviews</a></li>
                   </ul>
                 </li>
               </ul>
