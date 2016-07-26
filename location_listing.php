@@ -34,10 +34,15 @@ session_start();
           $cost = $result_array['Cost'];
           $category = $result_array['LocationType'];
           $discount = $result_array['StudentDiscount'];
+          if($discount == 0) {
+              $discount_string = "No";
+          } else {
+              $discount_string = "Yes";
+          }
           echo "<h4>Address: $address</h4>";
           echo "<h4>Cost: $cost</h4>";
           echo "<h4>Category: $category</h4>";
-          echo "<h4>Student Discount: $discount</h4>";
+          echo "<h4>Student Discount: $discount_string</h4>";
 
 
 
