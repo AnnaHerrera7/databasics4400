@@ -60,12 +60,12 @@ session_start();
         ?>
           <form class = "form-horizotal" action="" method="POST">
             <div class="form-group">
-              <label for="user">Username:</label>
-              <input type="text" class ="form-horizontal" id="user">
+              <label for="username_input">Username:</label>
+              <input type="text" class ="form-horizontal" id="username_input" name ="user">
             </div>
             <div class="form-group">
-              <label for="password">Password:</label>
-              <input type="text" class ="form-horizontal" id="password">
+              <label for="password_input">Password:</label>
+              <input type="text" class ="form-horizontal" id="password_input" name="password">
             </div>
             <input type="submit" name="submit" value="Sign in">
           </form>

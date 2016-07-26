@@ -39,7 +39,7 @@ session_start();
               echo "</select> <br />";
               echo "<input type=\"date\" name=\"edate\"><br />";
              ?>
-            
+
              <b>Cost</b>
              <input type="text" name="minimum" placeholder="Minimum"/> to
              <input type="text" name="maximum" placeholder="Maximum"/><br />
@@ -89,7 +89,7 @@ session_start();
 
             if(isset($_POST['event'])
               && isset($_POST['city'])
-              && isset($_POST['discount']) 
+              && isset($_POST['discount'])
               && isset($_POST['scoresort'])) {
                   if($_POST['event'] == "empty") {
                     $eve = "";
@@ -109,7 +109,7 @@ session_start();
                   $sort = $_POST['scoresort'];
                   $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, AVG(Score) AS AvgScore
                           FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
-                          WHERE $eve $city $sdiscount $cost $type                          
+                          WHERE $eve $city $sdiscount $cost $type
                           Event.ReviewableID = Reviewable.ReviewableID
                           GROUP BY Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType
                           ORDER BY AvgScore $sort;";
