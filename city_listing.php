@@ -20,20 +20,27 @@ session_start();
         ini_set("display_errors", 1);
         $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
         $city = $_GET['a'];
+        $country = $_GET['b'];
         echo "<h2> $city </h2>";
-        $query = "SELECT *
-                  FROM City
-                  WHERE CityName = \"$city\";";
+        $query = "SELECT City.Population, City.Latitude, City.Longitude, AVG(Score) as AvgScore
+                  FROM City, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
+                  WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\"
+                  AND City.ReviewableID = Reviewable.ReviewableID;";
         $result = mysqli_query($con, $query);
         $result_array = mysqli_fetch_array($result);
-        $country = $result_array['CountryName'];
+        $avg = $result_array['AvgScore'];
+        if($avg == NULL) {
+          $avgs = "No Reviews Yet";
+        } else {
+          $avgs = $avg;
+        }
         $population = $result_array['Population'];
 
         echo "<h4>Country: $country</h4>";
         echo "<h4>Population: $population</h4>";
         $query_languages = "SELECT LanguageName
                             FROM CityLanguage
-                            WHERE CityName = \"$city\";";
+                            WHERE CityLanguage.CityName = \"$city\" AND CityLanguage.CountryName = \"$country\";";
         $result_languages = mysqli_query($con, $query_languages);
         echo "<h4>Languages: ";
         while($row = mysqli_fetch_array($result_languages)) {
@@ -41,7 +48,7 @@ session_start();
             echo "$lang ";
         }
         echo "</h4>";
-        echo "<h4> Average Review Score: Filler</h4>";
+        echo "<h4> Average Review Score: $avgs</h4>";
         $lat = $result_array["Latitude"];
         $long = $result_array["Longitude"];
         echo "<h4>GPS: $lat, $long</h4>";

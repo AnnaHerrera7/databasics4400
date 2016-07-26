@@ -155,7 +155,7 @@ session_start();
                   }
                   foreach($output as $row) {
                       echo "<tr>";
-                      echo "<td><a href=\"city_listing.php?a=$row[0]\">" . $row[0] . "</a></td>";
+                      echo "<td><a href=\"city_listing.php?a=$row[0]&b=$row[1]\">" . $row[0] . "</a></td>";
                       echo "<td>" . $row[1] . "</td>";
                       echo "<td>" . $row[2] . "</td>";
                       echo "<td>" . $row[3] . "</td>";
