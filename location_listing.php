@@ -21,33 +21,18 @@ session_start();
           $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
           echo "<h2>" . $_GET['a'] . "</h2>";
           $location_name = $_GET['a'];
-          $query_location = "SELECT Address
-                             FROM Location
-                             WHERE Lname = \"$location_name\";";
 
-          $result_location = mysqli_query($con, $query_location);
-          if(mysqli_num_rows($result_location) > 0) {
-              $address =  mysqli_fetch_array($result_location)[0];
-              echo $address;
-          }
+          $query = "SELECT *
+                        FROM Location
+                        WHERE Lname = \"$location_name\";";
 
-          $query_city = "SELECT CityName, CountryName
-                         FROM Location
-                         WHERE Lname = \"$location_name\";";
+          $result = mysqli_query($con, $query);
+          $result_array = mysqli_fetch_array($result);
+          $address = $result_array['Address'];
+          $city = $result_array['CityName'];
+          $country = $result_array['CountryName'];
+          echo $address;
 
-          $result_city = mysqli_query($con, $query_city);
-          if(mysqli_num_rows($result_city) > 0) {
-              $city = mysqli_fetch_array($result_city)[0];
-          }
-
-          $query_country = "SELECT CountryName
-                         FROM Location
-                         WHERE Lname = \"$location_name\";";
-
-          $result_country = mysqli_query($con, $query_country);
-          if(mysqli_num_rows($result_country) > 0) {
-              $country = mysqli_fetch_array($result_country)[0];
-          }
           $query_events = "SELECT DISTINCT Event.EName, Event.EDate, Event.StartTime, Event.EventType, AVG(Score) AS AvgScore
                            FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                            WHERE Event.Address = \"$address\"

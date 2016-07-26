@@ -69,4 +69,12 @@ h2{
     margin-left: auto;
     border-radius: 10px!important;
 }
+
+.btn-default:hover {
+    background-image: -webkit-linear-gradient(top, lightgrey, grey);
+    background-image: -moz-linear-gradient(top, lightgrey, grey);
+    background-image: -ms-linear-gradient(top, lightgrey, grey);
+    background-image: -o-linear-gradient(top, lightgrey, grey);
+    background-image: linear-gradient(to bottom, lightgrey, grey);
+}
     

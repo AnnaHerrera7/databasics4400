@@ -1,4 +1,5 @@
 body {
+  padding-top: 125px;
   background: url(../images/background-main.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -15,14 +16,14 @@ body {
        -moz-transition: all ease .3s;
          -o-transition: all ease .3s;
             transition: all ease .3s;
-    background-color: rgba(227, 242, 253, .4);
+    background-color: rgba(227, 242, 253, .4)!important;
+    border-bottom-color: #3939ac;
 }
 .navbar:hover {
-    background-color: rgba(227, 242, 253, 6);
+    background-color: rgba(227, 242, 253, 1)!important;
 }
 
 .jumbotron {
-    margin-top: 80px;
     float: none;
     margin-left: auto;
     margin-right: auto;
@@ -33,6 +34,16 @@ body {
     width: 650px;
 
 }
+
+.form-control {
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+}
+
+.form-horizontal{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .table tbody tr {

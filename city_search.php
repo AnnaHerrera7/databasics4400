@@ -8,6 +8,11 @@ session_start();
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
     <link rel = 'stylesheet' href = './css/city_search.css'/>
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
@@ -23,8 +28,7 @@ session_start();
           <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
         </div>
       </nav>
-    </header>
-    <div class="container text-left">
+    <div class="container text-center">
       <div class='jumbotron'>
         <h2><center>City Search</center></h2>
           <form action = "" method="POST" role="form">
@@ -34,7 +38,7 @@ session_start();
 
               $query_country = "SELECT * FROM Country";
               $result_country = mysqli_query($con, $query_country);
-              echo "<label for=\"countrysel\">Country</label>";
+              echo "<label for=\"countrysel\">Country: </label>";
               echo "<select class=\"form-control\" id=\"countrysel\" name=\"country\" >";
               echo "<option value =\"empty\"></option>";
               while($row = mysqli_fetch_array($result_country)) {
@@ -44,7 +48,7 @@ session_start();
 
               $query_city = "SELECT City.CityName FROM City";
               $result_city = mysqli_query($con, $query_city);
-              echo "<label for=\"citysel\">City</label>";
+              echo "<label for=\"citysel\">City: </label>";
               echo "<select class=\"form-control\" id=\"citysel\" name=\"cities\">";
               echo "<option value =\"empty\"></option>";
               while($row = mysqli_fetch_array($result_city)) {
@@ -54,13 +58,13 @@ session_start();
              ?>
              </div>
              <div class="form-group">
-              <label for="pop">Population</label>
-        <!--      <b>Population</b> -->
-             <!-- <input type="range" name="points" min="0" max="10"> -->
-              <input type="number" class="form-control" id="pop" name="minimum" placeholder="Minimum"/> to
-              <input type="number" class="form-control" id="pop" name="maximum" placeholder="Maximum"/><br />
-            </div>
-             <b class="text-center">City Languages</b>
+              <div class = "col-md-2">
+              <label for="pop">Population: </label>
+              </div>
+              <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to
+              <input type="number" class="form-horizontal" id="pop" name="maximum" placeholder="Maximum"/><br />
+              </div>
+             <b class="text-center">City Languages:</b>
              <?php
                 $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
                 $query = "SELECT * FROM Languages";
@@ -71,12 +75,13 @@ session_start();
                 }
                 echo "</fieldset>"
               ?>
-              <b>Sort Review Scores</b>
+              <br/>
+              <b>Sort Review Scores: </b>
               <select name="scoresort">
                 <option value = 'AvgScore ASC'>Ascending</option>
                 <option value = 'AvgScore DESC'>Descending</option>
               </select><br />
-
+              <br/>
               <input type="submit" name="submit" value="Search">
           </form>
           <?php
@@ -91,29 +96,11 @@ session_start();
               || isset($_POST['scoresort'])) {
               if (!isset($_POST['cities']) || $_POST['cities'] == "empty") {
                 $city = "";
-                // $query_city = "SELECT CityName FROM City";
-                // $result_city = mysqli_query($con, $query_city);
-                // $j = 0;
-                // for ($i = 0; $i < mysqli_num_rows($result_city) - 1; $i++) {
-                //   $city_array = mysqli_fetch_array($result_city);
-                //   $city = $city . "City.CityName = \"$city_array[$j]\" OR ";
-                // }
-                // $city_array = mysqli_fetch_array($result_city);
-                // $city = $city . "City.CityName = \"$city_array[$j]\"";
               } else {
                 $city = "City.CityName = \"". $_POST['cities'] ."\" AND ";
               }
               if (!isset($_POST['country']) || $_POST['country'] == "empty") {
                 $country = "";
-              //   $query_country = "SELECT DISTINCT CountryName FROM City";
-              //   $result_country = mysqli_query($con, $query_country);
-              //   $j = 0;
-              //   for ($i = 0; $i < mysqli_num_rows($result_country) - 1; $i++) {
-              //     $country_array = mysqli_fetch_array($result_country);
-              //     $country = $country . "City.CountryName = \"$country_array[$j]\" OR ";
-              //   }
-              //   $country_array = mysqli_fetch_array($result_country);
-              //   $country = $country . "City.CountryName = \"$country_array[$j]\"";
               } else {
                 $country = "City.CountryName = \"". $_POST['country'] ."\" AND ";
               }
@@ -147,11 +134,9 @@ session_start();
                       AND City.ReviewableID = Reviewable.ReviewableID
                       GROUP BY CityName, CountryName, Population, LanguageName
                       ORDER BY $sort , City.CityName ASC;";
-              // echo "<p>$sql</p>";
               $result = mysqli_query($con, $sql) or die(mysqli_error($con));
               if(mysqli_num_rows($result) > 0) {
                   $_SESSION['country_search'] = $result;
-                  //echo "<script>window.location.href='country_search_results.php'</script>";
                   echo "<br/><br/>";
                   echo "<table class= \"table\">";
                   echo "<tr>";
@@ -169,6 +154,7 @@ session_start();
                         $output[$loc] = array($val[0], $val[1], $val[2], $val[3], $val[4]);
                       }
                   }
+                  $_SESSION['city_search_result'] = $output;
                   foreach($output as $row) {
                       echo "<tr>";
                       echo "<td><a href=\"city_listing.php?a=$row[0]\">" . $row[0] . "</a></td>";
@@ -180,7 +166,7 @@ session_start();
                   }
                   echo "</table>";
               } else {
-                  echo "No results found!";
+                  echo "<div>No results found!</div>";
               }
             }
           ?>
