@@ -25,13 +25,27 @@ session_start();
 
       <header>
         <nav class = 'navbar navbar-light navbar-fixed-top'>
-        <div id = "spy-scroll-id" class = 'container'>
-            <ul class="nav navbar-nav navbar-right">
-            <li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href = "home.php"><i class ="fa fa-user"></i> <?php echo $_SESSION['user']; ?></a></li>
-            </ul>
-            <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
-        </div>
+          <div id = "spy-scroll-id" class = 'container'>
+              <ul class="nav navbar-nav navbar-right">
+              <li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
+              <li><a href = "home.php"><i class ="fa fa-user"></i> <?php echo $_SESSION['user']; ?></a></li>
+              </ul>
+              <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+              <ul class="nav navbar-nav navbar-left">
+                <li><a href = "country_search.php"><i class="fa fa-globe"></i> Country</a></li>
+                <li><a href = "city_search.php"><i class="fa fa-building-o"></i> City</a></li>
+                <li><a href = "location_search.php"><i class="fa fa-map-marker"></i> Location</a></li>
+                <li><a href = "event_search.php"><i class="fa fa-calendar"></i> Event</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class = "fa fa-pencil"></i> Reviews <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="review_city.php">Review a City</a></li>
+                    <li><a href="review_event.php">Review an Event</a></li>
+                    <li><a href="review_location.php">Review a Location</a></li>
+                    <li><a href="see_reviews.php">See all Reviews</a></li>
+                  </ul>
+                </li>
+              </ul>
+          </div>
         </nav>
       </header>
 
