@@ -9,6 +9,10 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
     <link rel = 'stylesheet' href = './css/login.css'/>
 
     <meta charset ='utf-8'/>
@@ -30,7 +34,7 @@ session_start();
 
     <div class = "container text-center">
       <div class = "jumbotron">
-        <a href = '#' class = "img-responsive "><img id = "mainLogo" src = "./images/LogoMakr.png"></a>
+        <img class="displayed" id = "mainLogo" src = "./images/LogoMakr.png">
         <h1>Login</h1>
         <?php
         error_reporting(E_ALL);

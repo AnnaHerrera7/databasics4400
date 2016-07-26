@@ -79,8 +79,6 @@ insert into reviewable
 values (30);
 insert into reviewable
 values (31);
-insert into reviewable
-values (32);
 
 /* Cities */
 insert into city
@@ -179,7 +177,7 @@ values ('Disney Convention', '2016-01-25', '19:00:00', '112 Disney Way', 'Paris'
 insert into event
 values ('Race to See the Floating Lanterns', '2016-03-22', '6:00:00', '111 Disney Way',	'Paris', 'France', '12:00:00', 50, false, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Race', 30);
 insert into event
-values ('Brother Bear Live', '2016-06-01', '15:00:00', '114 Disney Way', 'Paris', 'France',	'17:00:00', 20, true, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Concert', 31); 
+values ('Brother Bear Live', '2016-06-01', '15:00:00', '114 Disney Way', 'Paris', 'France',	'17:00:00', 20, true, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Concert', 31);
 
 
 /* Languages */
@@ -207,7 +205,7 @@ insert into languages
 values ('Galician');
 insert into languages
 values ('Basque (Euskara)');
-insert into languages 
+insert into languages
 values ('Gaelic');
 insert into languages
 values ('Portuguese');

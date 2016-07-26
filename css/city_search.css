@@ -10,9 +10,34 @@ body {
    height: 50px;
    width: 75px;
 }
+.navbar {
+    -webkit-transition: all ease .3s;
+       -moz-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
+    background-color: rgba(227, 242, 253, .4);
+}
+.navbar:hover {
+    background-color: rgba(227, 242, 253, 6);
+}
 
-table tr{
+.jumbotron {
+    margin-top: 80px;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e3f2fd!important;
+    border-color: #333399!important;
+    border-style: solid;
+    color: #333399;
+    width: 650px;
+
+}
+}
+
+.table tbody tr {
     border-top: 2px solid;
     border-bottom: 2px solid;
-    border-color: grey;
+    border-color: #333399!important;
+    color: #333399!important;
 }

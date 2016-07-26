@@ -24,6 +24,7 @@ body {
    width: 75px;
 }
 
+
 .jumbotron {
     float: none;
     margin-left: auto;
@@ -44,3 +45,10 @@ body {
     width: 275px;
 }
 
+input {
+    margin-bottom: 7px;
+}
+
+.radio-inline {
+    margin-bottom: 20px;
+}
