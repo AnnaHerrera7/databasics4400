@@ -20,11 +20,11 @@ session_start();
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
-              $query_country = "SELECT DISTINCT LName FROM Location";
-              $result_country = mysqli_query($con, $query_country);
+              $query_location = "SELECT DISTINCT LName FROM Location";
+              $result_location = mysqli_query($con, $query_location);
               echo "<select name=\"location\">";
                 echo "<option value = 'empty'></option>";
-              while($row = mysqli_fetch_array($result_country)) {
+              while($row = mysqli_fetch_array($result_location)) {
                 echo "<option value = '" . $row['LName'] . "'>" . $row['LName'] . "</option>";
               }
               echo "</select> <br />";

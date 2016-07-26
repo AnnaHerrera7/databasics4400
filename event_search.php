@@ -20,11 +20,11 @@ session_start();
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
-              $query_country = "SELECT DISTINCT EName FROM Event";
-              $result_country = mysqli_query($con, $query_country);
+              $query_event = "SELECT DISTINCT EName FROM Event";
+              $result_event = mysqli_query($con, $query_event);
               echo "<select name=\"event\">";
                 echo "<option value = 'empty'></option>";
-              while($row = mysqli_fetch_array($result_country)) {
+              while($row = mysqli_fetch_array($result_event)) {
                 echo "<option value = '" . $row['EName'] . "'>" . $row['EName'] . "</option>";
               }
               echo "</select> <br />";
@@ -89,19 +89,8 @@ session_start();
 
             if(isset($_POST['event'])
               && isset($_POST['city'])
-              && isset($_POST['discount'])
-              /*&& isset($_POST['edate'])
-              && isset($_POST['minimum'])
-              && isset($_POST['maximum'])
-              && isset($_POST['etype'])*/ 
+              && isset($_POST['discount']) 
               && isset($_POST['scoresort'])) {
-                  /*$eve = $_POST['event'];
-                  $city = $_POST['city'];
-                  $date = $_POST['edate'];
-                  $sdiscount = $_POST['discount'];
-                  $min = $_POST['minimum'];
-                  $max = $_POST['maximum'];
-                  $type = $_POST['etype'];*/
                   if($_POST['event'] == "empty") {
                     $eve = "";
                   } else {
