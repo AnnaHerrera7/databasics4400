@@ -92,6 +92,8 @@ session_start();
               echo "</tr>";
           }
           echo "<br />";
+        } else {
+            echo "No reviews found!";
         }
         ?>
       </div>

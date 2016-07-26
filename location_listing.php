@@ -37,16 +37,17 @@ session_start();
           $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
           echo "<h2>" . $_GET['a'] . "</h2>";
           $location_name = $_GET['a'];
+          $city = $_GET['b'];
+          $country = $_GET['c'];
 
-          $query = "SELECT *
-                        FROM Location
-                        WHERE Lname = \"$location_name\";";
+          $query = "SELECT Location.Address, Location.Cost, Location.LocationType, Location.StudentDiscount, AVG(Score) as AvgScore
+                        FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
+                        WHERE Lname = \"$location_name\" AND Location.CityName = \"$city\"
+                        AND Location.CountryName = \"$country\" AND Location.ReviewableID = Reviewable.ReviewableID;";
 
           $result = mysqli_query($con, $query);
           $result_array = mysqli_fetch_array($result);
           $address = $result_array['Address'];
-          $city = $result_array['CityName'];
-          $country = $result_array['CountryName'];
           $cost = $result_array['Cost'];
           $category = $result_array['LocationType'];
           $discount = $result_array['StudentDiscount'];
@@ -55,11 +56,17 @@ session_start();
           } else {
               $discount_string = "Yes";
           }
+          $avg = $result_array['AvgScore'];
+          if($avg == NULL) {
+            $avgs = "No Reviews Yet";
+          } else {
+            $avgs = $avg;
+          }
           echo "<h4>Address: $address</h4>";
           echo "<h4>Cost: $cost</h4>";
           echo "<h4>Category: $category</h4>";
           echo "<h4>Student Discount: $discount_string</h4>";
-
+          echo "<h4>Average Review Score: $avgs</h4>";
 
 
           $query_events = "SELECT DISTINCT Event.EName, Event.EDate, Event.StartTime, Event.EventType, AVG(Score) AS AvgScore

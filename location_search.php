@@ -114,7 +114,7 @@ session_start();
                     $city = "Location.CityName = \"". $_POST['city'] ."\" AND ";
                   }
                   $sort = $_POST['scoresort'];
-                  $sql = "SELECT DISTINCT Location.LName, Location.CityName, Location.LocationType, Location.Cost, AVG(Score) AS AvgScore
+                  $sql = "SELECT DISTINCT Location.LName, Location.CityName, Location.LocationType, Location.Cost, AVG(Score) AS AvgScore, Location.CountryName
                           FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                           WHERE $loc $city $cost $type
                           Location.ReviewableID = Reviewable.ReviewableID
@@ -130,7 +130,7 @@ session_start();
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td><a href=\"location_listing.php?a=$val[0]\">" . $val[0] . "</a></td>";
+                          echo "<td><a href=\"location_listing.php?a=$val[0]&b=$val[1]&c=$val[5]\">" . $val[0] . "</a></td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
