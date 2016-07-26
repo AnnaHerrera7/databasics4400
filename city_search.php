@@ -18,16 +18,15 @@ session_start();
     <title>GTtravel</title>
   </head>
   <body>
-    <header>
-    <nav class = 'navbar navbar-default navbar-fixed-top'>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
         <div id = "spy-scroll-id" class = 'container'>
           <ul class="nav navbar-nav navbar-right">
-            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href = "index.php"><i class ="fa fa-user"></i>Logout</a></li>
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
           </ul>
-          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
         </div>
-      </nav>
+    </nav>
     <div class="container text-center">
       <div class='jumbotron'>
         <h2><center>City Search</center></h2>
@@ -56,7 +55,7 @@ session_start();
               }
               echo "</select> <br />";
              ?>
-             </div>
+            </div>
              <div class="form-group">
               <div class = "col-md-2">
               <label for="pop">Population: </label>
@@ -138,7 +137,7 @@ session_start();
               if(mysqli_num_rows($result) > 0) {
                   $_SESSION['country_search'] = $result;
                   echo "<br/><br/>";
-                  echo "<table class= \"table\">";
+                  echo "<table class= \"table table-striped\" border=\"1\">";
                   echo "<tr>";
                       echo "<th> City </th><th> Country </th><th> Population </th><th>Language</th><th>Score</th>";
                   echo "</tr>";
@@ -170,8 +169,5 @@ session_start();
               }
             }
           ?>
-      </div>
-    </div>
-
   </body>
 </html>
