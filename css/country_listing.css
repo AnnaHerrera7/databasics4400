@@ -23,3 +23,29 @@ body {
 .navbar:hover {
     background-color: rgba(227, 242, 253, 1)!important;
 }
+
+
+.jumbotron {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e3f2fd!important;
+    border-color: #333399!important;
+    border-style: solid;
+    color: #333399;
+    width: 650px;
+
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+.table tbody tr {
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    border-color: #333399!important;
+    color: #333399!important;
+}

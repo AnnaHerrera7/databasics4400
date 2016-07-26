@@ -44,12 +44,17 @@ session_start();
             $username = $_POST['user'];
             $pass = $_POST['password'];
             $query = "SELECT * FROM Users WHERE Username=\"$username\"
-                                                and UPassword =\"$pass\"
-                                                and IsManager = 0";
+                                                and UPassword =\"$pass\";";
             if($result = mysqli_query($con, $query)) {
               if(mysqli_num_rows($result) == 1) {
-                $_SESSION['user'] = $username;
-                echo "<script>window.location.href='home.php'</script>";
+                $result_array = mysqli_fetch_array($result);
+                if($result_array['IsManager'] == 0) {
+                  $_SESSION['user'] = $username;
+                  echo "<script>window.location.href='home.php'</script>";
+                } else if($result_array['IsManager'] == 1) {
+                  $_SESSION['user'] = $username;
+                  echo "<script>window.location.href='add_city.php'</script>";
+                }
               } else {
                 echo "wrong credentials";
               }

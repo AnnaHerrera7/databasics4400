@@ -34,6 +34,7 @@ session_start();
                           echo "<th>Subject</th><th>Date</th><th>Score</th><th>Critic Level</th><th>Description</th>";
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
+                          $date = urlencode($val[1]);
                           $sql2 = "SELECT AVG(Score) as AvgScore FROM Review WHERE Review.ReviewableID = $val[4]";
                           $result2 = mysqli_query($con, $sql2);
                           $my_array=mysqli_fetch_assoc($result2);
@@ -46,7 +47,7 @@ session_start();
                             $harshness = "Easy";
                           }
                           echo "<tr>";
-                          echo "<td><a href = \"update_review.php?a=$val[4]\">" . $val[0] . "</td>";
+                          echo "<td><a href = \"update_review.php?id=$val[4]&date=$date\">" . $val[0] . "</td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $harshness . "</td>";
