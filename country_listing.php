@@ -36,20 +36,55 @@ session_start();
           $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
           $country = $_GET['a'];
           echo "<h2>" . $country . "</h2>";
-          $sql = "SELECT City.CityName, Population, LanguageName, AVG(Score) AS AvgScore
-                  FROM City, CityLanguage, Review, Reviewable
+          $result = mysqli_query($con, "SELECT city.CityName
+                                        FROM city
+                                        WHERE city.CountryName =\"$country\" AND city.Capital=1;") or die(mysqli_error($con));
+          $cities = "";
+          while ($val = mysqli_fetch_array($result)) {
+            $cities = $cities . $val[0] . " ";
+          }
+          echo "<h3> Capital(s): $cities </h3>";
+          $result = mysqli_query($con, "SELECT country.Population
+                              FROM country
+                              WHERE country.CountryName=\"$country\";") or die(mysqli_error($con));
+          $val = mysqli_fetch_array($result);
+          $pop = number_format($val[0], 0, ".", ",");
+          echo "<h3> Population: $pop </h3>";
+          $result = mysqli_query($con, "SELECT DISTINCT citylanguage.LanguageName
+                                        FROM citylanguage
+                                        WHERE citylanguage.CountryName=\"$country\";") or die(mysqli_error($con));
+          $langs = "";
+          while ($val = mysqli_fetch_array($result)) {
+            $langs = $langs . $val[0] . " ";
+          }
+          echo "<h3> Language(s): $langs </h3>";
+          $sql = "SELECT City.CityName, City.Population, CityLanguage.LanguageName, AVG(Score) AS AvgScore
+                  FROM City, CityLanguage, Review RIGHT OUTER JOIN Reviewable ON Reviewable.ReviewableID = Review.ReviewableID
                   WHERE City.CountryName = \"$country\"
                   AND City.CityName = CityLanguage.CityName AND City.CountryName = CityLanguage.CountryName
-                  AND City.ReviewableID = Reviewable.ReviewableID AND Review.ReviewableID = Reviewable.ReviewableID
+                  AND City.ReviewableID = Reviewable.ReviewableID
                   GROUP BY CityName, Population, LanguageName
                   ORDER BY AvgScore DESC, CityName;";
-          $result = mysqli_query($con, $sql);
+          $result = mysqli_query($con, $sql) or die(mysqli_error($con));
+
           if(mysqli_num_rows($result) > -1) {
             echo "<table class= \"table table-striped\" border=\"1\">";
             echo "<tr>";
                 echo "<th>City</th><th>Population</th><th>Language</th><th>Score</th>";
             echo "</tr>";
+            $output = array();
+            $loc = 0;
             while($val = mysqli_fetch_array($result)) {
+                if (count($output) == 0) {
+                  $output[$loc] = array($val[0], $val[1], $val[2], $val[3]);
+                } elseif ($output[$loc][0] == $val[0]) {
+                  $output[$loc][2] = $output[$loc][2] . "<br/>" . $val[2];
+                } else {
+                  $loc++;
+                  $output[$loc] = array($val[0], $val[1], $val[2], $val[3]);
+                }
+            }
+           foreach($output as $val) {
                 echo "<tr>";
                 echo "<td>" . $val[0] . "</td>";
                 echo "<td>" . $val[1] . "</td>";
