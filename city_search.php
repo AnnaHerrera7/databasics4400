@@ -18,13 +18,14 @@ session_start();
     <title>GTtravel</title>
   </head>
   <body>
-    <nav class = 'navbar navbar-light navbar-fixed-top'>
+    <header>
+    <nav class = 'navbar navbar-default navbar-fixed-top'>
         <div id = "spy-scroll-id" class = 'container'>
           <ul class="nav navbar-nav navbar-right">
-            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
-            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href = "index.php"><i class ="fa fa-user"></i>Logout</a></li>
           </ul>
-          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
         </div>
       </nav>
     <div class="container text-center">
@@ -60,7 +61,7 @@ session_start();
               <div class = "col-md-2">
               <label for="pop">Population: </label>
               </div>
-              <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to 
+              <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to
               <input type="number" class="form-horizontal" id="pop" name="maximum" placeholder="Maximum"/><br />
               </div>
              <b class="text-center">City Languages:</b>
@@ -156,7 +157,7 @@ session_start();
                   $_SESSION['city_search_result'] = $output;
                   foreach($output as $row) {
                       echo "<tr>";
-                      echo "<td>" . $row[0] . "</td>";
+                      echo "<td><a href=\"city_listing.php?a=$row[0]\">" . $row[0] . "</a></td>";
                       echo "<td>" . $row[1] . "</td>";
                       echo "<td>" . $row[2] . "</td>";
                       echo "<td>" . $row[3] . "</td>";

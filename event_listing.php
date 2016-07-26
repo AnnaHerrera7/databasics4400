@@ -13,6 +13,16 @@ session_start();
     <title>GTtravel</title>
   </head>
   <body>
-    
+    <div class="container text-center">
+      <div class = "jumbotron">
+        <?php
+        error_reporting(E_ALL);
+        ini_set("display_errors", 1);
+        $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
+        $event = $_GET['a'];
+        echo "<h2>" . $event . "</h2>";
+        ?>
+      </div>
+    </div>
   </body>
 </html>

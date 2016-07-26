@@ -123,7 +123,7 @@ session_start();
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td>" . $val[0] . "</td>";
+                          echo "<td><a href = \"event_listing.php?a=$val[0]\">" . $val[0] . "</td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
