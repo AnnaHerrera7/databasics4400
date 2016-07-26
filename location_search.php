@@ -20,11 +20,11 @@ session_start();
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
-              $query_country = "SELECT DISTINCT LName FROM Location";
-              $result_country = mysqli_query($con, $query_country);
+              $query_location = "SELECT DISTINCT LName FROM Location";
+              $result_location = mysqli_query($con, $query_location);
               echo "<select name=\"location\">";
                 echo "<option value = 'empty'></option>";
-              while($row = mysqli_fetch_array($result_country)) {
+              while($row = mysqli_fetch_array($result_location)) {
                 echo "<option value = '" . $row['LName'] . "'>" . $row['LName'] . "</option>";
               }
               echo "</select> <br />";
@@ -38,7 +38,7 @@ session_start();
               }
               echo "</select> <br />";
              ?>
-            
+
              <b>Cost</b>
              <input type="text" name="minimum" placeholder="Minimum"/> to
              <input type="text" name="maximum" placeholder="Maximum"/><br />
@@ -105,7 +105,7 @@ session_start();
                       echo "</tr>";
                       while($val = mysqli_fetch_array($result)) {
                           echo "<tr>";
-                          echo "<td>" . $val[0] . "</td>";
+                          echo "<td><a href=\"location_listing.php?a=$val[0]\">" . $val[0] . "</a></td>";
                           echo "<td>" . $val[1] . "</td>";
                           echo "<td>" . $val[2] . "</td>";
                           echo "<td>" . $val[3] . "</td>";
