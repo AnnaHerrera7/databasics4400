@@ -42,7 +42,7 @@ session_start();
               }
               echo "</select> <br />";
 
-              $query_city = "SELECT * FROM City";
+              $query_city = "SELECT City.CityName FROM City";
               $result_city = mysqli_query($con, $query_city);
               echo "<label for=\"citysel\">City</label>";
               echo "<select class=\"form-control\" id=\"citysel\" name=\"cities\">";
@@ -71,7 +71,11 @@ session_start();
                 }
                 echo "</fieldset>"
               ?>
-
+              <b>Sort Review Scores</b>
+              <select name="scoresort">
+                <option value = 'AvgScore ASC'>Ascending</option>
+                <option value = 'AvgScore DESC'>Descending</option>
+              </select><br />
 
               <input type="submit" name="submit" value="Search">
           </form>
@@ -83,7 +87,8 @@ session_start();
               || isset($_POST['country'])
               || isset($_POST['minimum'])
               || isset($_POST['maximum'])
-              || isset($_POST['language'])) {
+              || isset($_POST['language'])
+              || isset($_POST['scoresort'])) {
               if (!isset($_POST['cities']) || $_POST['cities'] == "empty") {
                 $city = "";
                 // $query_city = "SELECT CityName FROM City";
@@ -127,6 +132,7 @@ session_start();
               } else {
                 $language = "WHERE CityLanguage.LanguageName = \"". $_POST['language']."\") AND ";
               }
+              $sort = $_POST['scoresort'];
               $sql = "SELECT DISTINCT City.CityName, City.CountryName, City.Population, LanguageName, AVG(Score) AS AvgScore
                       FROM City, Country, CityLanguage, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                       WHERE
@@ -140,7 +146,7 @@ session_start();
                               City.CityName = CityLanguage.CityName AND City.CountryName = CityLanguage.CountryName
                       AND City.ReviewableID = Reviewable.ReviewableID
                       GROUP BY CityName, CountryName, Population, LanguageName
-                      ORDER BY AvgScore DESC, City.CityName ASC;";
+                      ORDER BY $sort , City.CityName ASC;";
               // echo "<p>$sql</p>";
               $result = mysqli_query($con, $sql) or die(mysqli_error($con));
               if(mysqli_num_rows($result) > 0) {

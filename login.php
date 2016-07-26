@@ -9,14 +9,33 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/login.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+
+      <header>
+        <nav class = 'navbar navbar-light navbar-fixed-top'>
+            <div id = "spy-scroll-id" class = 'container'>
+              <ul class="nav navbar-nav navbar-right">
+      					<li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href = "login.php"><i class ="fa fa-user"></i>Login</a></li>
+              </ul>
+              <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+            </div>
+          </nav>
+        </header>
+
     <div class = "container text-center">
       <div class = "jumbotron">
-        <h1>Travel Reviews</h1>
-        <h2>Login</h2>
+        <img class="displayed" id = "mainLogo" src = "./images/LogoMakr.png">
+        <h1>Login</h1>
         <?php
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
@@ -39,9 +58,15 @@ session_start();
           echo "All fields are required";
         }
         ?>
-          <form action="" method="POST">
-            Username: <input type="text" name="user" required/><br />
-            Password: <input type="text" name="password" required/><br />
+          <form class = "form-horizotal" action="" method="POST">
+            <div class="form-group">
+              <label for="user">Username:</label>
+              <input type="text" class ="form-horizontal" id="user">
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="text" class ="form-horizontal" id="password">
+            </div>
             <input type="submit" name="submit" value="Sign in">
           </form>
           <a href="signup.php">New to GT Travel? Sign up here! </a>

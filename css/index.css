@@ -1,15 +1,26 @@
 body { padding-top: 175px; }
 
-
-
+.navbar {
+    -webkit-transition: all ease .3s;
+       -moz-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
+    background-color: rgba(227, 242, 253, .4);
+}
+.navbar:hover {
+    background-color: rgba(227, 242, 253, 6);
+}
 #logo {
    height: 50px;
    width: 75px;
 }
 
-#mainLogo {
-   height: 250px;
-   width: 275px;
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 250px;
+    width: 275px;
 }
 
 h1 {
@@ -66,7 +77,6 @@ body {
   -moz-border-radius: 28;
   border-radius: 28px;
   font-family: Georgia;
-  color: #ffffff;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
@@ -81,5 +91,4 @@ body {
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: underline;
   font-size: 25px;
-  color: #ffffff;
 }

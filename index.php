@@ -32,7 +32,7 @@ session_start();
      ?>
 
       <header>
-        <nav class = 'navbar navbar-default navbar-fixed-top'>
+        <nav class = 'navbar navbar-light navbar-fixed-top'>
             <div id = "spy-scroll-id" class = 'container'>
               <ul class="nav navbar-nav navbar-right">
       					<li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
@@ -42,8 +42,9 @@ session_start();
             </div>
           </nav>
         </header>
+
         <div class = 'container text-center' id = 'intro'>
-          <a href = '#' class = "img-responsive "><img id = "mainLogo" src = "./images/LogoMakr.png"></a>
+        <img class="displayed" id = "mainLogo" src = "./images/LogoMakr.png">
           <div class = "panel panel-primary panel-transparent">
               <div class = "panel-heading">
                   <h2 class = 'panel-title'>Time to explore outside The Bubble.</h2>
@@ -54,8 +55,8 @@ session_start();
                 log in and find your new vacation spot. If you are new to GT Travel, we are
                 excited to see where you go. Sign up and let us know!</p>
                 <p> <br /></p>
-              <div class = 'btn'><a href = "login.php">Login</a></div>
-              <div class = 'btn'><a href = "signup.php">Sign Up</a></div>
+              <a href = "login.php"><div class = 'btn'>Login</div></a>
+              <a href = "signup.php"><div class = 'btn'>Sign Up</div></a>
               </div>
         </div>
     </body>
