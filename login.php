@@ -9,6 +9,10 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
     <link rel = 'stylesheet' href = './css/login.css'/>
 
     <meta charset ='utf-8'/>
@@ -56,12 +60,12 @@ session_start();
         ?>
           <form class = "form-horizotal" action="" method="POST">
             <div class="form-group">
-              <label for="username_input">Username:</label>
-              <input type="text" class ="form-horizontal" id="username_input">
+              <label for="user">Username:</label>
+              <input type="text" class ="form-horizontal" id="user">
             </div>
             <div class="form-group">
-              <label for="password_input">Password:</label>
-              <input type="text" class ="form-horizontal" id="password_input">
+              <label for="password">Password:</label>
+              <input type="text" class ="form-horizontal" id="password">
             </div>
             <input type="submit" name="submit" value="Sign in">
           </form>
