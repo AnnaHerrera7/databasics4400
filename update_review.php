@@ -9,10 +9,25 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/update_review.css'/>
+
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+    <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class="container text-center">
       <div class = "jumbotron">
           <?php
@@ -41,18 +56,20 @@ session_start();
           ?>
           <form action="update_review_action.php" method="POST">
             <div>
-              <label for="sub">Subject</label>
+              <label for="sub">Subject: </label>
               <input type="text" class="form-control" id="sub" name="subject" value="<?PHP echo $subject; ?>" required>
             </div>
             <div>
-              <label for="datepick">Date</label>
+              <label for="datepick">Date: </label>
               <input type="date" class="form-control" id="datepick" name="datepick" value="<?PHP echo date('Y-m-d'); ?>" disabled>
             </div>
             <div>
-              <label for="desc">Description</label>
+              <label for="desc">Description: </label>
               <textarea class="form-control" rows="5" id="description" name="description" required><?PHP echo $desc; ?></textarea>
             </div>
             <div>
+            <br/>
+            <label for = "score"> Score: </label>
               <select name="score">
               <?php
               for ($i = 1; $i < 6; $i++) {
@@ -70,6 +87,7 @@ session_start();
               <input type="hidden" value="<?PHP echo $review_id; ?>" name="id"></input>
               <input type="hidden" value="<?PHP echo $date; ?>" name="date"></input>
             </div>
+            <br/>
           <input type="submit" name="submit" value="Submit">
         </form>
       </div>
