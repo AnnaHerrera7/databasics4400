@@ -44,7 +44,7 @@ session_start();
                   if(mysqli_num_rows($result) > 0) {
                       $_SESSION['user_reviews'] = $result;
                       //echo "<script>window.location.href='country_search_results.php'</script>";
-                      echo "<table class= \"tbale table-striped\" border=\"1\">";
+                      echo "<table class= \"table table-striped\" border=\"1\">";
                       echo "<tr>";
                       echo "<th>Subject</th><th>Date</th><th>Score</th><th>Critic Level</th><th>Description</th>";
                       echo "</tr>";
