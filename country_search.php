@@ -53,7 +53,7 @@ session_start();
               <div class = "col-md-2">
               <label for="pop">Population: </label>
               </div>
-              <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to 
+              <input type="number" class="form-horizontal" id="pop" name="minimum" placeholder="Minimum"/> to
               <input type="number" class="form-horizontal" id="pop" name="maximum" placeholder="Maximum"/><br />
               </div>
               <b class="text-center">Languages</b>
@@ -95,8 +95,8 @@ session_start();
                   }
                   $sql = "SELECT DISTINCT Country.CountryName, City.CityName, Country.Population, LanguageName
                       FROM Country, CountryLanguage, City
-                      WHERE $country $pop $lang 
-                      City.CountryName = Country.CountryName AND City.Capital = 1 AND 
+                      WHERE $country $pop $lang
+                      City.CountryName = Country.CountryName AND City.Capital = 1 AND
                       Country.CountryName = CountryLanguage.CountryName;";
                   $result = mysqli_query($con, $sql);
                   if(mysqli_num_rows($result) > 0) {
@@ -107,7 +107,19 @@ session_start();
                       echo "<tr>";
                           echo "<th> Country </th><th> Capital City </th><th> Population </th><th>Language</th>";
                       echo "</tr>";
+                      $output = array();
+                      $loc = 0;
                       while($val = mysqli_fetch_array($result)) {
+                          if (count($output) == 0) {
+                            $output[$loc] = array($val[0], $val[1], $val[2], $val[3]);
+                          } elseif ($output[$loc][0] == $val[0]) {
+                            $output[$loc][3] = $output[$loc][3] . "<br/>" . $val[3];
+                          } else {
+                            $loc++;
+                            $output[$loc] = array($val[0], $val[1], $val[2], $val[3]);
+                          }
+                      }
+                      foreach($output as $val) {
                           echo "<tr>";
                           echo "<td><a href= \"country_listing.php?a=$val[0]\">" . $val[0] . "</a></td>";
                           echo "<td>" . $val[1] . "</td>";
