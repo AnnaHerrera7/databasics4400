@@ -42,7 +42,7 @@ session_start();
         $startTime = $_GET['f'];
         echo "<h2>" . $event . "</h2>";
 
-        $query = "SELECT Event.EndTime, Event.Cost, Event.EventType, Event.StudentDiscount, Event.Description, AVG(Score) as AvgScore
+        $query = "SELECT Event.EndTime, Event.Cost, Event.EventType, Event.StudentDiscount, Event.Description, AVG(Score) as AvgScore, Event.ReviewableID
                   FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                   WHERE Event.Ename = \"$event\" AND Event.Address = \"$address\"
                   AND Event.CityName = \"$city\" AND Event.CountryName = \"$country\"
@@ -69,6 +69,7 @@ session_start();
           } else {
             $avgs = $avg;
           }
+        $revid = $result_array['ReviewableID'];
         echo $location;
         echo $dateTime;
         echo "<h4>Cost: $cost Euros</h4>";
@@ -108,6 +109,12 @@ session_start();
             echo "No reviews found!";
         }
         ?>
+        <div class = "btn-group">
+      <?php
+        echo "<a class=\"btn btn-default\" href=\"write_review.php?a=$revid\">Review Event</a>";
+        echo "<a class=\"btn btn-default\" href=\"event_search.php\">Go Back</a>";
+        ?>
+    </div>
       </div>
     </div>
   </body>

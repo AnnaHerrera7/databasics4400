@@ -40,7 +40,7 @@ session_start();
           $city = $_GET['b'];
           $country = $_GET['c'];
 
-          $query = "SELECT Location.Address, Location.Cost, Location.LocationType, Location.StudentDiscount, AVG(Score) as AvgScore
+          $query = "SELECT Location.Address, Location.Cost, Location.LocationType, Location.StudentDiscount, AVG(Score) as AvgScore, Location.ReviewableID
                         FROM Location, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                         WHERE Lname = \"$location_name\" AND Location.CityName = \"$city\"
                         AND Location.CountryName = \"$country\" AND Location.ReviewableID = Reviewable.ReviewableID;";
@@ -62,6 +62,7 @@ session_start();
           } else {
             $avgs = $avg;
           }
+          $revid = $result_array['ReviewableID'];
           echo "<h4>Address: $address</h4>";
           echo "<h4>Cost: $cost</h4>";
           echo "<h4>Category: $category</h4>";
@@ -124,6 +125,12 @@ session_start();
          }
 
          ?>
+      <div class = "btn-group">
+      <?php
+        echo "<a class=\"btn btn-default\" href=\"write_review.php?a=$revid\">Review Location</a>";
+        echo "<a class=\"btn btn-default\" href=\"location_search.php\">Go Back</a>";
+        ?>
+      </div>
       </div>
     </div>
   </body>
