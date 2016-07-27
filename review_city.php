@@ -107,7 +107,7 @@ session_start();
             $score = $_POST['score'];
             $desc = $_POST['description'];
             $user = $_SESSION['user'];
-            $date = date('m/d/Y');
+            $date = date('Y-m-d');
             $query1 = "SELECT City.ReviewableID
             FROM City
             WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\";";
@@ -116,7 +116,7 @@ session_start();
                 $my_revid_array=mysqli_fetch_assoc($my_revid);
                 $revid=$my_revid_array['ReviewableID'];
                 $query2 = "INSERT INTO Review (Username, RDate, RSubject, Score, ReviewableID, Description)
-                VALUES (\"$user\", $date, \"$sub\", $score, $revid, \"$desc\");";
+                VALUES (\"$user\", \"$date\", \"$sub\", $score, $revid, \"$desc\");";
                 if($result = mysqli_query($con, $query2)) {
                   echo "Review submitted";
                 }
