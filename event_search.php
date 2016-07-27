@@ -4,6 +4,10 @@ session_start();
 ?>
 <html>
   <head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -26,6 +30,20 @@ session_start();
             <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
           </ul>
           <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href = "country_search.php"><i class="fa fa-globe"></i> Country</a></li>
+            <li><a href = "city_search.php"><i class="fa fa-building-o"></i> City</a></li>
+            <li><a href = "location_search.php"><i class="fa fa-map-marker"></i> Location</a></li>
+            <li><a href = "event_search.php"><i class="fa fa-calendar"></i> Event</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class = "fa fa-pencil"></i> Reviews <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="review_city.php">Review a City</a></li>
+                <li><a href="review_event.php">Review an Event</a></li>
+                <li><a href="review_location.php">Review a Location</a></li>
+                <li><a href="see_reviews.php">See All Reviews</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
     </nav>
     <div class="container text-center">
@@ -134,7 +152,7 @@ session_start();
                     $sdiscount = "Event.StudentDiscount = \"". $_POST['discount'] ."\" AND ";
                   }
                   $sort = $_POST['scoresort'];
-                  $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, 
+                  $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType,
                           AVG(Score) AS AvgScore, Event.Address, Event.CountryName
                           FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                           WHERE $eve $city $sdiscount $cost $type
