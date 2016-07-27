@@ -4,6 +4,10 @@ session_start();
 ?>
 <html>
   <head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -25,6 +29,20 @@ session_start();
             <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
           </ul>
           <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href = "country_search.php"><i class="fa fa-globe"></i> Country</a></li>
+            <li><a href = "city_search.php"><i class="fa fa-building-o"></i> City</a></li>
+            <li><a href = "location_search.php"><i class="fa fa-map-marker"></i> Location</a></li>
+            <li><a href = "event_search.php"><i class="fa fa-calendar"></i> Event</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class = "fa fa-pencil"></i> Reviews <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="review_city.php">Review a City</a></li>
+                <li><a href="review_event.php">Review an Event</a></li>
+                <li><a href="review_location.php">Review a Location</a></li>
+                <li><a href="see_reviews.php">See All Reviews</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
     </nav>
     <div class = "container text-center">
@@ -61,7 +79,7 @@ session_start();
          <label for="description">Description: </label>
          <textarea class = "form-control" rows = "5" name="description" required></textarea><br />
          </div>
-         
+
          <label for="score">Score: </label>
               <select name="score">
                 <option value = 1>1</option>
@@ -77,7 +95,7 @@ session_start();
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
         $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
-        if(isset($_POST['country']) 
+        if(isset($_POST['country'])
           && isset($_POST['cities'])
           && isset($_POST['subject'])
           && isset($_POST['score'])
@@ -89,16 +107,16 @@ session_start();
             $score = $_POST['score'];
             $desc = $_POST['description'];
             $user = $_SESSION['user'];
-            $date = date('m/d/Y');
-            $query1 = "SELECT City.ReviewableID 
-            FROM City 
+            $date = date('Y-m-d');
+            $query1 = "SELECT City.ReviewableID
+            FROM City
             WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\";";
             if($my_revid = mysqli_query($con, $query1)) {
               if(mysqli_num_rows($my_revid) == 1) {
                 $my_revid_array=mysqli_fetch_assoc($my_revid);
                 $revid=$my_revid_array['ReviewableID'];
                 $query2 = "INSERT INTO Review (Username, RDate, RSubject, Score, ReviewableID, Description)
-                VALUES (\"$user\", $date, \"$sub\", $score, $revid, \"$desc\");";
+                VALUES (\"$user\", \"$date\", \"$sub\", $score, $revid, \"$desc\");";
                 if($result = mysqli_query($con, $query2)) {
                   echo "Review submitted";
                 }

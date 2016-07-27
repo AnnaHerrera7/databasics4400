@@ -24,6 +24,10 @@ body {
     background-color: rgba(227, 242, 253, 1)!important;
 }
 
+.dropdown-menu {
+  background-color: rgba(227, 242, 253, .7)!important;
+}
+
 .jumbotron {
     float: none;
     margin-left: auto;
