@@ -20,6 +20,10 @@ body {
     border-bottom-color: #3939ac;
 }
 
+.dropdown-menu {
+  background-color: rgba(227, 242, 253, .7)!important;
+}
+
 .navbar:hover {
     background-color: rgba(227, 242, 253, 1)!important;
 }
