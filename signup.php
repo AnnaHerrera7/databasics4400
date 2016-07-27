@@ -69,7 +69,8 @@ session_start();
                   echo '</script>';
                }
                else {
-                  $add_user = "INSERT INTO Users VALUES (\"$username\", \"$email\", \"$password\", $type);";
+                  $hashed = password_hash($password, PASSWORD_DEFAULT);
+                  $add_user = "INSERT INTO Users VALUES (\"$username\", \"$email\", \"$hashed\", $type);";
                   $result_user = mysqli_query($con, $add_user) or die(mysqli_error($con));
                   $_SESSION['user'] = $username;
                   if($type == 0) {

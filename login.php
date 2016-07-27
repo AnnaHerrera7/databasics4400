@@ -43,11 +43,10 @@ session_start();
         if(isset($_POST['user']) && isset($_POST['password'])) {
             $username = $_POST['user'];
             $pass = $_POST['password'];
-            $query = "SELECT * FROM Users WHERE Username=\"$username\"
-                                                and UPassword =\"$pass\";";
+            $query = "SELECT * FROM Users WHERE Username=\"$username\";";
             if($result = mysqli_query($con, $query)) {
-              if(mysqli_num_rows($result) == 1) {
-                $result_array = mysqli_fetch_array($result);
+              if($result_array = mysqli_fetch_array($result) && mysqli_num_rows($result) == 1
+                && password_verify($pass, $result_array[3]) {
                 if($result_array['IsManager'] == 0) {
                   $_SESSION['user'] = $username;
                   echo "<script>window.location.href='home.php'</script>";
