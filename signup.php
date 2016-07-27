@@ -70,7 +70,6 @@ session_start();
                }
                else {
                   $add_user = "INSERT INTO Users VALUES (\"$username\", \"$email\", \"$password\", $type);";
-                  echo "<p> $add_user </p>";
                   $result_user = mysqli_query($con, $add_user) or die(mysqli_error($con));
                   $_SESSION['user'] = $username;
                   if($type == 0) {
@@ -95,7 +94,7 @@ session_start();
               <label for="password">Password:</label>
               </div>
               <div class = "col-md-6">
-              <input type="text" class ="form-horizontal" id="password" name="password">
+              <input type="password" class ="form-horizontal" id="password" name="password">
               </div>
             </div>
             <div class="form-group">
@@ -103,7 +102,7 @@ session_start();
               <label for="cfmPassword">Confirm Password:</label>
               </div>
               <div class = "col-md-6">
-              <input type="text" class ="form-horizontal" id="cfmPassword" name="cfmPassword">
+              <input type="password" class ="form-horizontal" id="cfmPassword" name="cfmPassword">
               </div>
             </div>
             <div class="form-group">

@@ -55,13 +55,14 @@ session_start();
         $city = $_GET['a'];
         $country = $_GET['b'];
         echo "<h2> $city </h2>";
-        $query = "SELECT City.Population, City.Latitude, City.Longitude, AVG(Score) as AvgScore
+        $query = "SELECT City.Population, City.Latitude, City.Longitude, AVG(Score) as AvgScore, City.ReviewableID
                   FROM City, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                   WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\"
                   AND City.ReviewableID = Reviewable.ReviewableID;";
         $result = mysqli_query($con, $query);
         $result_array = mysqli_fetch_array($result);
         $avg = $result_array['AvgScore'];
+        $revid = $result_array['ReviewableID'];
         if($avg == NULL) {
           $avgs = "No Reviews Yet";
         } else {
@@ -115,8 +116,6 @@ session_start();
             echo "<h3>Locations Within: </h3>";
             echo "No Locations Found!";
         }
-
-
         $query_reviews = "SELECT DISTINCT Review.Username, Review.RDate, Review.Score, Review.Description
                           FROM City, Review, Reviewable
                           WHERE City.CityName = \"$city\" AND City.CountryName = \"$country\"
@@ -140,9 +139,14 @@ session_start();
           echo "<h3>Reviews:</h3>";
           echo "<br />";
         }
-
         ?>
       </div>
+    </div>
+    <div class = "btn-group">
+      <?php
+        echo "<a class=\"btn btn-default\" href=\"write_review.php?a=$revid\">Review City</a>";
+        echo "<a class=\"btn btn-default\" href=\"city_search.php\">Go Back</a>";
+        ?>
     </div>
   </body>
 </html>
