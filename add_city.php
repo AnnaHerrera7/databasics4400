@@ -9,6 +9,12 @@ session_start();
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/add_city.css'/>
+
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"
             integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="
             crossorigin="anonymous"></script>
@@ -21,22 +27,28 @@ session_start();
     <title>GTtravel</title>
   </head>
   <body>
-    <div class = "container text-left">
+      <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
+    <div class = "container text-center">
       <div class = "jumbotron">
         <h2><center>Add a City</center></h2>
         <form action = "" method="POST" role="form">
-
-            <div class="form-group">
-              <label for="cityin">City Name</label>
-              <input type="text" class="form-control" id="cityin" name="city" placeholder="(e.g. Barcelona)">
-            </div>
+          <label for="cityin">City Name: </label>
+          <input type="text" class="form-control" id="cityin" name="city" placeholder="(e.g. Barcelona)">
             <div class="form-group">
             <?php
               $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
 
               $query_country = "SELECT * FROM Country";
               $result_country = mysqli_query($con, $query_country);
-              echo "<label for=\"countrysel\">Country</label>";
+              echo "<label for=\"countrysel\">Country: </label>";
               echo "<select class=\"form-control\" id=\"countrysel\" name=\"country\" >";
               echo "<option value =\"empty\">Select Country</option>";
               while($row = mysqli_fetch_array($result_country)) {
@@ -46,14 +58,12 @@ session_start();
              ?>
              </div>
               <div class="form-group row">
-                <label for="latitude" class="col-md-1 control-label">Latitude</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" name="lat" id="latitude" placeholder="0 0 N">
-                </div>
-                <label for="longitude" class="col-md-1 control-label">Longitude</label>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" name="lon" id="longitude" placeholder="0 0 E">
-                </div>
+                <label for="latitude" class="control-label">Latitude: </label>
+                <input type="text" class="form-control" name="lat" id="latitude" placeholder="0 0 N">
+              </div>
+              <div class="form-group row">
+                <label for="longitude" class="control-label">Longitude: </label>
+                <input type="text" class="form-control" name="lon" id="longitude" placeholder="0 0 E">
               </div>
 
 <!--               <div class="form-group">
@@ -62,15 +72,16 @@ session_start();
               </div> -->
 
              <div class="form-group">
-              <label for="pop">Population</label>
+              <label for="pop">Population: </label>
         <!--      <b>Population</b> -->
              <!-- <input type="range" name="points" min="0" max="10"> -->
               <input type="number" class="form-control" min="0" id="pop" name="pop" placeholder="Enter a number"/><br />
             </div>
             <div class="form-group row">
-                <label for="latitude" class="col-md-1 control-label">Capital?</label>
-                <label><input type="radio" value="0" name="capital">No</label>
-                <label><input type="radio" value="1" name="capital">Yes</label>
+                <label for="capital" class="control-label">Capital?</label>
+                <br/>
+                <input type="radio" value="1" name="capital">Yes
+                <input type="radio" value="0" name="capital">No
             </div>
              <b class="text-center">City Languages</b>
              <?php
@@ -83,7 +94,7 @@ session_start();
                 }
                 echo "</fieldset>"
               ?>
-
+              <br/>
             <input type="submit" name="submit" value="Add City">
         </form>
         <?php

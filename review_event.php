@@ -37,7 +37,7 @@ session_start();
 
           $query_country = "SELECT * FROM Country";
           $result_country = mysqli_query($con, $query_country);
-          echo "<label for=\"countrysel\">Country</label>";
+          echo "<label for=\"countrysel\">Country: </label>";
           echo "<select class=\"form-control\" id=\"countrysel\" name=\"country\" >";
           while($row = mysqli_fetch_array($result_country)) {
             echo "<option value = '" . $row['CountryName'] . "'>" . $row['CountryName'] . "</option>";
@@ -46,7 +46,7 @@ session_start();
 
           $query_city = "SELECT DISTINCT City.CityName FROM City";
           $result_city = mysqli_query($con, $query_city);
-          echo "<label for=\"citysel\">City</label>";
+          echo "<label for=\"citysel\">City: </label>";
           echo "<select class=\"form-control\" id=\"citysel\" name=\"cities\">";
           while($row = mysqli_fetch_array($result_city)) {
             echo "<option value = '" . $row['CityName'] . "'>" . $row['CityName'] . "</option>";
