@@ -184,6 +184,9 @@ session_start();
                   echo "<div>No results found!</div>";
               }
             }
-          ?>
+          ?> 
+          <div class = "btn-group">
+          <a class="btn btn-success" href="special_city_search.php">Get a bit crazy.</a>
+          </div>
   </body>
 </html>

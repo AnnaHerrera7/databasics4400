@@ -1,0 +1,47 @@
+body {
+  padding-top: 125px;
+  background: url(../images/background-main.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+#logo {
+   height: 50px;
+   width: 75px;
+}
+
+.navbar {
+    -webkit-transition: all ease .3s;
+       -moz-transition: all ease .3s;
+         -o-transition: all ease .3s;
+            transition: all ease .3s;
+    background-color: rgba(227, 242, 253, .4)!important;
+    border-bottom-color: #3939ac;
+}
+
+.navbar:hover {
+    background-color: rgba(227, 242, 253, 1)!important;
+}
+
+.dropdown-menu {
+  background-color: rgba(227, 242, 253, .7)!important;
+}
+
+.jumbotron {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e3f2fd!important;
+    border-color: #333399!important;
+    border-style: solid;
+    color: #333399;
+    width: 650px;
+
+}
+
+.form-control {
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+}
