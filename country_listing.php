@@ -114,5 +114,10 @@ session_start();
           ?>
       </div>
     </div>
+    <div class = "btn-group">
+      <?php
+        echo "<a class=\"btn btn-default\" href=\"country_search.php\">Go Back</a>";
+        ?>
+    </div>
   </body>
 </html>
