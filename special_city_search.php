@@ -4,27 +4,51 @@ session_start();
 ?>
 <html>
   <head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
-    <link rel = 'stylesheet' href = './css/city_search.css'/>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/special_city_search.css'/>
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
-    <header>
-    <nav class = 'navbar navbar-default navbar-fixed-top'>
-        <div id = "spy-scroll-id" class = 'container'>
-          <ul class="nav navbar-nav navbar-right">
-            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href = "index.php"><i class ="fa fa-user"></i>Logout</a></li>
-          </ul>
-          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/gt-logo.png"></a>
-        </div>
-      </nav>
-    </header>
-    <div class="container text-left">
+      <header>
+        <nav class = 'navbar navbar-light navbar-fixed-top'>
+          <div id = "spy-scroll-id" class = 'container'>
+              <ul class="nav navbar-nav navbar-right">
+              <li class = 'active'><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
+              <li><a href = "home.php"><i class ="fa fa-user"></i> <?php echo $_SESSION['user']; ?></a></li>
+              </ul>
+              <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+              <ul class="nav navbar-nav navbar-left">
+                <li><a href = "country_search.php"><i class="fa fa-globe"></i> Country</a></li>
+                <li><a href = "city_search.php"><i class="fa fa-building-o"></i> City</a></li>
+                <li><a href = "location_search.php"><i class="fa fa-map-marker"></i> Location</a></li>
+                <li><a href = "event_search.php"><i class="fa fa-calendar"></i> Event</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class = "fa fa-pencil"></i> Reviews <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="review_city.php">Review a City</a></li>
+                    <li><a href="review_event.php">Review an Event</a></li>
+                    <li><a href="review_location.php">Review a Location</a></li>
+                    <li><a href="see_reviews.php">See All Reviews</a></li>
+                  </ul>
+                </li>
+              </ul>
+          </div>
+        </nav>
+      </header>
+    <div class="container text-center">
       <div class='jumbotron'>
         <h2><center>City Search</center></h2>
           <form action = "" method="POST" role="form">
@@ -34,7 +58,7 @@ session_start();
 
               $query_country = "SELECT * FROM Country";
               $result_country = mysqli_query($con, $query_country);
-              echo "<label for=\"countrysel\">Country</label>";
+              echo "<label for=\"countrysel\">Country: </label>";
               echo "<select class=\"form-control\" id=\"countrysel\" name=\"country\" >";
               echo "<option value =\"empty\"></option>";
               while($row = mysqli_fetch_array($result_country)) {
@@ -54,7 +78,7 @@ session_start();
                 }
                 echo "</fieldset>"
               ?>
-
+              <br/>
               <input type="submit" name="submit" value="Search">
           </form>
           <?php
