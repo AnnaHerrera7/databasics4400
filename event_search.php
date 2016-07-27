@@ -135,7 +135,7 @@ session_start();
                   }
                   $sort = $_POST['scoresort'];
                   $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, 
-                          AVG(Score) AS AvgScore, Event.Address, Event.CountryName
+                          AVG(Score) AS AvgScore, Event.Address, Event.CountryN
                           FROM Event, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
                           WHERE $eve $city $sdiscount $cost $type
                           Event.ReviewableID = Reviewable.ReviewableID
