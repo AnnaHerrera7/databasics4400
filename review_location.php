@@ -8,11 +8,25 @@ session_start();
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
           crossorigin="anonymous"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1"
+          crossorigin="anonymous">
+
+    <link rel = 'stylesheet' href = './css/review_event.css'/>
 
     <meta charset ='utf-8'/>
     <title>GTtravel</title>
   </head>
   <body>
+      <nav class = 'navbar navbar-light navbar-fixed-top'>
+        <div id = "spy-scroll-id" class = 'container'>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = 'active'><a href="home.php"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href = "login.php"><i class ="fa fa-user"></i>Logout</a></li>
+          </ul>
+          <a href = '#' class = "pull-left navbar-left"><img id = "logo" src = "./images/LogoMakr.png"></a>
+        </div>
+    </nav>
     <div class = "container text-center">
       <div class = "jumbotron">
         <h1>Write a Location Review</h1>
@@ -23,7 +37,7 @@ session_start();
 
           $query_country = "SELECT * FROM Country";
           $result_country = mysqli_query($con, $query_country);
-          echo "<label for=\"countrysel\">Country</label>";
+          echo "<label for=\"countrysel\">Country:</label>";
           echo "<select class=\"form-control\" id=\"countrysel\" name=\"country\" >";
           while($row = mysqli_fetch_array($result_country)) {
             echo "<option value = '" . $row['CountryName'] . "'>" . $row['CountryName'] . "</option>";
@@ -32,7 +46,7 @@ session_start();
 
           $query_city = "SELECT DISTINCT City.CityName FROM City";
           $result_city = mysqli_query($con, $query_city);
-          echo "<label for=\"citysel\">City</label>";
+          echo "<label for=\"citysel\">City:</label>";
           echo "<select class=\"form-control\" id=\"citysel\" name=\"cities\">";
           while($row = mysqli_fetch_array($result_city)) {
             echo "<option value = '" . $row['CityName'] . "'>" . $row['CityName'] . "</option>";
@@ -41,16 +55,23 @@ session_start();
 
           $query_location = "SELECT DISTINCT LName FROM Location";
               $result_location = mysqli_query($con, $query_location);
-              echo "<label for=\"locsel\">Location</label>";
+              echo "<label for=\"locsel\">Location:</label>";
               echo "<select class=\"form-control\" id=\"locsel\" name=\"location\">";
               while($row = mysqli_fetch_array($result_location)) {
                 echo "<option value = '" . $row['LName'] . "'>" . $row['LName'] . "</option>";
               }
               echo "</select> <br />";
          ?>
-          Subject <input type="text" name="subject" required/><br />
-          Description <input type="text" name="description" required/><br />
-          Score
+         <div>
+         <label for="subject">Subject: </label>
+         <input class="form-control" type="text" name="subject" required/><br />
+         </div>
+         <div>
+         <label for="description">Description: </label>
+         <textarea class = "form-control" rows = "5" id="descrip" name="description" required></textarea><br />
+         </div>
+         
+         <label for="score">Score: </label>
               <select name="score">
                 <option value = 1>1</option>
                 <option value = 2>2</option>
@@ -58,6 +79,7 @@ session_start();
                 <option value = 4>4</option>
                 <option value = 5>5</option>
               </select><br />
+              <br/>
           <input type="submit" name="submit" value="Submit">
         </form>
         <?php
