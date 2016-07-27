@@ -70,7 +70,7 @@ session_start();
             </div>
             <div class="form-group">
               <label for="password_input">Password:</label>
-              <input type="text" class ="form-horizontal" id="password_input" name="password">
+              <input type="password" class ="form-horizontal" id="password_input" name="password">
             </div>
             <input type="submit" name="submit" value="Sign in">
           </form>
