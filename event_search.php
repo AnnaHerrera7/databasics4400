@@ -69,8 +69,9 @@ session_start();
              <b class = "text-center">Student Discount: </b>
               <select name="discount">
                 <option value = "empty"></option>
-                <option value = "1">Yes</option>
-                <option value = "0">No</option>
+                <option value = "1 OR ">Free or Discounted</option>
+                <option value = "1 AND ">Discounted</option>
+                <option value = "0 AND ">Not Discounted</option>
               </select><br />
               <br/>
              <b class="text-center">Category</b>
@@ -128,10 +129,14 @@ session_start();
                   } else {
                     $city = "Event.CityName = \"". $_POST['city'] ."\" AND ";
                   }
+                  $dis = $_POST['discount'];
                   if($_POST['discount'] == "empty") {
                     $sdiscount = "";
+                  } else if ($_POST['discount'] == "1 OR "){
+                    $sdiscount = "(Event.StudentDiscount = $dis";
+                    $cost = "Event.Cost BETWEEN 0 AND 0) AND ";
                   } else {
-                    $sdiscount = "Event.StudentDiscount = \"". $_POST['discount'] ."\" AND ";
+                    $sdiscount = "Event.StudentDiscount = $dis";
                   }
                   $sort = $_POST['scoresort'];
                   $sql = "SELECT DISTINCT Event.EName, Event.CityName, Event.EDate, Event.StartTime, Event.Cost, Event.EventType, 

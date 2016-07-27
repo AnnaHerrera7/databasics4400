@@ -62,12 +62,15 @@ session_start();
             ini_set("display_errors", 1);
             $con = mysqli_connect($db_host, $db_user, $db_password, $db_database) or die("Connection Failed");
             if (isset($_POST['country'])
-              || isset($_POST['language'])) {
+              && isset($_POST['language'])) {
               $country = $_POST['country'];
               $language = $_POST['language'];
               $sql = "SELECT DISTINCT City.CityName, City.CountryName, City.Population, LanguageName, AVG(Score) AS AvgScore
                       FROM City, CityLanguage, Review RIGHT OUTER JOIN Reviewable ON Review.ReviewableID=Reviewable.ReviewableID
-                      WHERE CityLanguage.CountryName = \"$country\"
+                      WHERE (City.CityName, City.CountryName) IN (SELECT CityLanguage.CityName, CityLanguage.CountryName
+                        FROM CityLanguage
+                        WHERE CityLanguage.LanguageName = \"$language\")
+                      AND CityLanguage.CountryName = \"$country\"
                       AND CityLanguage.LanguageName != \"$language\"
                       AND City.CountryName = CityLanguage.CountryName
                       AND City.CityName = CityLanguage.CityName
