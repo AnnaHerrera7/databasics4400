@@ -10,8 +10,7 @@
     $description = $_POST['description'];
     $id = $_POST['id'];
     $score = $_POST['score'];
-    // $user = $_SESSION['user'];
-    $user = "origin";
+    $user = $_SESSION['user'];
     $sql = "UPDATE Review
             SET RDate=\"$cur_date\", Score=\"$score\", Description=\"$description\",
                 RSubject=\"$subject\"
